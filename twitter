@@ -27,12 +27,12 @@ conf = YAML.load open(conf_file).read
 ## auth
 if !conf['access_token'] or !conf['access_secret']
   consumer = OAuth::Consumer.new(conf['consumer_key'], conf['consumer_secret'],
-                                :site => 'http://twitter.com/')
+                                :site => 'http://twitter.com')
   begin
     request_token = consumer.get_request_token
     puts "open #{request_token.authorize_url}"
     system "open #{request_token.authorize_url}"
-    print 'input OAuth Verifier: '
+    print 'input PIN Number: '
     oauth_verifier = gets.strip
     access_token = request_token.get_access_token(:oauth_verifier => oauth_verifier)
     conf['access_token'] = access_token.token
@@ -68,8 +68,9 @@ if ARGV.size > 0
   else
     begin
       res = Twitter.update message
+      puts res.text
       puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id_str}"
-      puts "#{res.text} - #{m.created_at}"
+      puts res.created_at
     rescue => e
     STDERR.puts e
     end
