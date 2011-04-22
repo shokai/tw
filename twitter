@@ -15,7 +15,7 @@ unless File.exists?(CONF_FILE)
 # regist your app on twitter(http://twitter.com/apps) to get KEY and SECRET
 consumer_key: your-consumer-key
 consumer_secret: your-consumer-secret
-    EOF
+EOF
   }
   system "#{ENV['EDITOR']} #{CONF_FILE}"
   puts "config file => #{CONF_FILE}"
