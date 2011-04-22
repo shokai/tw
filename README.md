@@ -41,5 +41,5 @@ user timeline
 
 list timeline
 
-    % twitter @shokai/hoge
-    % twitter @shokai/hoge @shokai/kzsk
+    % twitter @shokai/homu
+    % twitter @shokai/homu @shokai/kzsk
