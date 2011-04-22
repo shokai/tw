@@ -32,3 +32,4 @@ mentions
 user timeline
 
     % ./twitter @shokai
+    % ./twitter @shokai @ymrl @tomoyo_kousaka

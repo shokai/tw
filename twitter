@@ -6,21 +6,24 @@ require 'kconv'
 require 'yaml'
 $KCODE = 'u'
 
+
+CONF_FILE = "#{ENV['HOME']}/.twitter.conf"
+
+
 ## conf
-conf_file = "#{ENV['HOME']}/.twitter.conf"
-unless File.exists?(conf_file)
-  open(conf_file, 'w+'){|f|
+unless File.exists?(CONF_FILE)
+  open(CONF_FILE, 'w+'){|f|
     f.puts <<-EOF
 # regist your app on twitter(http://twitter.com/apps) to get KEY and SECRET
 consumer_key: your-consumer-key
 consumer_secret: your-consumer-secret
     EOF
   }
-  system "#{ENV['EDITOR']} #{conf_file}"
-  puts "config file => #{conf_file}"
+  system "#{ENV['EDITOR']} #{CONF_FILE}"
+  puts "config file => #{CONF_FILE}"
 end
 
-conf = YAML.load open(conf_file).read
+conf = YAML.load open(CONF_FILE).read
 
 ## auth
 if !conf['access_token'] or !conf['access_secret']
@@ -37,10 +40,10 @@ if !conf['access_token'] or !conf['access_secret']
     conf['access_secret'] = access_token.secret
   rescue => e
     STDERR.puts e
-    puts "check config file(#{conf_file}) and twitter.com status."
+    puts "check config file(#{CONF_FILE}) and twitter.com status."
     exit 1
   end
-  open(conf_file,'w+'){|f|
+  open(CONF_FILE,'w+'){|f|
     f.puts conf.to_yaml
   }
 end
@@ -56,10 +59,15 @@ end
 
 if ARGV.size > 0
   message = ARGV.join(' ')[0...140]
-  if message =~ /^@[a-zA-Z0-9_]+$/
+  argv_username = ARGV.map{|arg| arg =~ /^@[a-zA-Z0-9_]+$/ }
+  if argv_username.count(0) > 0 and argv_username.count(nil) < 1
     begin
-      Twitter.user_timeline(message.scan(/@(.+)/).first.first).each{|m|
-        puts "#{m.text} - #{m.created_at}"
+      ARGV.map{|name|
+        Twitter.user_timeline(name.scan(/@(.+)/).first.first)
+      }.flatten.sort{|a,b|
+        a.id<=>b.id
+      }.each{|m|
+        puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
       }
     rescue => e
       STDERR.puts e
@@ -76,7 +84,9 @@ if ARGV.size > 0
   end
 else
   begin
-    Twitter.mentions.each{|m|
+    Twitter.mentions.sort{|a,b|
+      a.id <=> b.id
+    }.each{|m|
       puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
     }
   rescue => e
