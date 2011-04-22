@@ -56,7 +56,6 @@ Twitter.configure do |config|
 end
 
 if ARGV.size > 0
-  message = ARGV.join(' ')[0...140]
   argv_username = ARGV.map{|arg| arg =~ /^@[a-zA-Z0-9_]+$/ }
   if argv_username.count(0) > 0 and argv_username.count(nil) < 1
     begin
@@ -72,7 +71,7 @@ if ARGV.size > 0
     end
   else
     begin
-      res = Twitter.update message
+      res = Twitter.update ARGV.join(' ')
       puts res.text
       puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id_str}"
       puts res.created_at
