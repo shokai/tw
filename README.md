@@ -1,12 +1,16 @@
 Simple Twitter Client
 =====================
-for UNIX, Linux and Mac OSX
+* one file twitter client.
+* Ruby 1.8.7.
+* for UNIX, Linux and Mac OSX.
 
 
 Install
 -------
 
     % git clone git://github.com/shokai/simple-twitter-client.git
+    % cp simple-twitter-client/twitter /path/to/somewhere/
+    % which twitter
 
 
 Install Dependencies
