@@ -62,7 +62,7 @@ if ARGV.size > 0
       ARGV.map{|name|
         Twitter.user_timeline(name.scan(/@(.+)/).first.first)
       }.flatten.sort{|a,b|
-        a.id<=>b.id
+        a.id <=> b.id
       }.each{|m|
         puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
       }
@@ -70,13 +70,25 @@ if ARGV.size > 0
       STDERR.puts e
     end
   else
-    begin
-      res = Twitter.update ARGV.join(' ')
-      puts res.text
-      puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id_str}"
-      puts res.created_at
-    rescue => e
-    STDERR.puts e
+    argv_listname = ARGV.map{|arg| arg =~ /^@[a-zA-Z0-9_]+\/.+$/ }
+    if argv_listname.count(0) > 0 and argv_listname.count(nil) < 1
+      ARGV.map{|arg|
+        user, listname = arg.scan(/^@([a-zA-Z0-9_]+)\/(.+)$/).first
+        Twitter.list_timeline(user, listname)
+      }.flatten.uniq.sort{|a,b|
+        a.id <=> b.id
+      }.each{|m|
+        puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
+      }
+    else
+      begin
+        res = Twitter.update ARGV.join(' ')
+        puts res.text
+        puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id_str}"
+        puts res.created_at
+      rescue => e
+        STDERR.puts e
+      end
     end
   end
 else

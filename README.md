@@ -24,16 +24,22 @@ Use
 
 tweet
 
-    % ./twitter hello hello
-    % ./twitter @shokai こにちわ
+    % twitter hello hello
+    % twitter @shokai こにちわ
 
 
 mentions
 
-    % ./twitter
+    % twitter
 
 
 user timeline
 
-    % ./twitter @shokai
-    % ./twitter @shokai @ymrl @tomoyo_kousaka
+    % twitter @shokai
+    % twitter @shokai @ymrl @tomoyo_kousaka
+
+
+list timeline
+
+    % twitter @shokai/hoge
+    % twitter @shokai/hoge @shokai/kzsk
