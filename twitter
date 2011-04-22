@@ -70,10 +70,10 @@ if ARGV.size > 0
       STDERR.puts e
     end
   else
-    argv_listname = ARGV.map{|arg| arg =~ /^@[a-zA-Z0-9_]+\/.+$/ }
+    argv_listname = ARGV.map{|arg| arg =~ /^@[a-zA-Z0-9_]+\/[a-zA-Z0-9_]+$/ }
     if argv_listname.count(0) > 0 and argv_listname.count(nil) < 1
       ARGV.map{|arg|
-        user, listname = arg.scan(/^@([a-zA-Z0-9_]+)\/(.+)$/).first
+        user, listname = arg.scan(/^@([a-zA-Z0-9_]+)\/([a-zA-Z0-9_]+)$/).first
         Twitter.list_timeline(user, listname)
       }.flatten.uniq.sort{|a,b|
         a.id <=> b.id
