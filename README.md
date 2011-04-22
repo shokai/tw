@@ -1,7 +1,7 @@
 Simple Twitter Client
 =====================
 * one file twitter client.
-* Ruby 1.8.7.
+* Ruby 1.8.7 / 1.9.2 / JRuby 1.6.0.
 * for UNIX, Linux and Mac OSX.
 
 

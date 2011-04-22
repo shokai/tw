@@ -2,9 +2,7 @@
 require 'rubygems'
 require 'oauth'
 require 'twitter'
-require 'kconv'
 require 'yaml'
-$KCODE = 'u'
 
 
 CONF_FILE = "#{ENV['HOME']}/.twitter.conf"
