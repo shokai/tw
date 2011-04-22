@@ -1,0 +1,85 @@
+#!/usr/bin/env ruby
+require 'rubygems'
+require 'oauth'
+require 'twitter'
+require 'kconv'
+require 'yaml'
+require 'json'
+$KCODE = 'u'
+
+
+## conf
+conf_file = "#{ENV['HOME']}/.twitter.conf"
+unless File.exists?(conf_file)
+  open(conf_file, 'w+'){|f|
+    f.puts <<-EOF
+# regist your app on twitter(http://twitter.com/apps) to get KEY and SECRET
+consumer_key: your-consumer-key
+consumer_secret: your-consumer-secret
+    EOF
+  }
+  system "#{ENV['EDITOR']} #{conf_file}"
+  puts "config file => #{conf_file}"
+end
+
+conf = YAML.load open(conf_file).read
+
+## auth
+if !conf['access_token'] or !conf['access_secret']
+  consumer = OAuth::Consumer.new(conf['consumer_key'], conf['consumer_secret'],
+                                :site => 'http://twitter.com/')
+  begin
+    request_token = consumer.get_request_token
+    puts "open #{request_token.authorize_url}"
+    system "open #{request_token.authorize_url}"
+    print 'input OAuth Verifier: '
+    oauth_verifier = gets.strip
+    access_token = request_token.get_access_token(:oauth_verifier => oauth_verifier)
+    conf['access_token'] = access_token.token
+    conf['access_secret'] = access_token.secret
+  rescue => e
+    STDERR.puts e
+    puts "check config file(#{conf_file}) and twitter.com status."
+    exit 1
+  end
+  open(conf_file,'w+'){|f|
+    f.puts conf.to_yaml
+  }
+end
+
+## tweet
+Twitter.configure do |config|
+  config.consumer_key = conf['consumer_key']
+  config.consumer_secret = conf['consumer_secret']
+  config.oauth_token = conf['access_token']
+  config.oauth_token_secret = conf['access_secret']
+end
+
+if ARGV.size > 0
+  message = ARGV.join(' ')[0...140]
+  if message =~ /^@[a-zA-Z0-9_]+$/
+    begin
+      Twitter.user_timeline(message.scan(/@(.+)/).first.first).each{|m|
+        puts "#{m.text} - #{m.created_at}"
+      }
+    rescue => e
+      STDERR.puts e
+    end
+  else
+    begin
+      res = Twitter.update message
+      puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id_str}"
+      puts "#{res.text} - #{m.created_at}"
+    rescue => e
+    STDERR.puts e
+    end
+  end
+else
+  begin
+    Twitter.mentions.each{|m|
+      puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
+    }
+  rescue => e
+    STDERR.puts e
+  end
+end
