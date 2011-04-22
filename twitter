@@ -4,9 +4,7 @@ require 'oauth'
 require 'twitter'
 require 'kconv'
 require 'yaml'
-require 'json'
 $KCODE = 'u'
-
 
 ## conf
 conf_file = "#{ENV['HOME']}/.twitter.conf"
@@ -46,6 +44,7 @@ if !conf['access_token'] or !conf['access_secret']
     f.puts conf.to_yaml
   }
 end
+
 
 ## tweet
 Twitter.configure do |config|
