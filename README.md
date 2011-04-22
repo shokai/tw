@@ -3,6 +3,12 @@ Simple Twitter Client
 for UNIX, Linux and Mac OSX
 
 
+Install
+-------
+
+    % git clone git://github.com/shokai/simple-twitter-client.git
+
+
 Install Dependencies
 --------------------
 
