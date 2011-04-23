@@ -82,7 +82,11 @@ if ARGV.size > 0
       }
     else
       begin
-        res = Twitter.update ARGV.join(' ')
+        message = ARGV.join(' ')
+        puts "tweet \"#{message}\"?"
+        puts '[Y/n]'
+        exit 1 if STDIN.gets.strip =~ /^n/i
+        res = Twitter.update message
         puts res.text
         puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id_str}"
         puts res.created_at

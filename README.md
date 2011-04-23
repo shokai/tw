@@ -26,6 +26,7 @@ tweet
 
     % twitter hello hello
     % twitter @shokai こにちわ
+    % yes | twitter もう寝よう！
 
 
 mentions
