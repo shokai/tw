@@ -44,3 +44,9 @@ list timeline
 
     % tw @shokai/homu
     % tw @shokai/homu @shokai/kzsk
+
+
+search
+
+    % tw ?jruby
+    % tw ?ruby ?sinatra
