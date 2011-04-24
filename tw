@@ -55,47 +55,7 @@ Twitter.configure do |config|
   config.oauth_token_secret = conf['access_secret']
 end
 
-if ARGV.size > 0
-  argv_username = ARGV.map{|arg| arg =~ /^@[a-zA-Z0-9_]+$/ }
-  if argv_username.count(0) > 0 and argv_username.count(nil) < 1
-    begin
-      ARGV.map{|name|
-        Twitter.user_timeline(name.scan(/@(.+)/).first.first)
-      }.flatten.sort{|a,b|
-        a.id <=> b.id
-      }.each{|m|
-        puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
-      }
-    rescue => e
-      STDERR.puts e
-    end
-  else
-    argv_listname = ARGV.map{|arg| arg =~ /^@[a-zA-Z0-9_]+\/[a-zA-Z0-9_]+$/ }
-    if argv_listname.count(0) > 0 and argv_listname.count(nil) < 1
-      ARGV.map{|arg|
-        user, listname = arg.scan(/^@([a-zA-Z0-9_]+)\/([a-zA-Z0-9_]+)$/).first
-        Twitter.list_timeline(user, listname)
-      }.flatten.uniq.sort{|a,b|
-        a.id <=> b.id
-      }.each{|m|
-        puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
-      }
-    else
-      begin
-        message = ARGV.join(' ')
-        puts "tweet \"#{message}\"?"
-        puts '[Y/n]'
-        exit 1 if STDIN.gets.strip =~ /^n/i
-        res = Twitter.update message
-        puts res.text
-        puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id_str}"
-        puts res.created_at
-      rescue => e
-        STDERR.puts e
-      end
-    end
-  end
-else
+if ARGV.size < 1
   begin
     Twitter.mentions.sort{|a,b|
       a.id <=> b.id
@@ -105,4 +65,48 @@ else
   rescue => e
     STDERR.puts e
   end
+  exit
 end
+
+argv_username = ARGV.map{|arg| arg =~ /^@[a-zA-Z0-9_]+$/ }
+if argv_username.count(0) > 0 and argv_username.count(nil) < 1
+  begin
+    ARGV.map{|name|
+      Twitter.user_timeline(name.scan(/@(.+)/).first.first)
+    }.flatten.sort{|a,b|
+      a.id <=> b.id
+    }.each{|m|
+      puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
+    }
+  rescue => e
+    STDERR.puts e
+  end
+  exit
+end
+
+argv_listname = ARGV.map{|arg| arg =~ /^@[a-zA-Z0-9_]+\/[a-zA-Z0-9_]+$/ }
+if argv_listname.count(0) > 0 and argv_listname.count(nil) < 1
+  ARGV.map{|arg|
+    user, listname = arg.scan(/^@([a-zA-Z0-9_]+)\/([a-zA-Z0-9_]+)$/).first
+    Twitter.list_timeline(user, listname)
+  }.flatten.uniq.sort{|a,b|
+    a.id <=> b.id
+  }.each{|m|
+    puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
+  }
+  exit
+end
+
+begin
+  message = ARGV.join(' ')
+  puts "tweet \"#{message}\"?"
+  puts '[Y/n]'
+  exit 1 if STDIN.gets.strip =~ /^n/i
+  res = Twitter.update message
+  puts res.text
+  puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id_str}"
+  puts res.created_at
+rescue => e
+  STDERR.puts e
+end
+
