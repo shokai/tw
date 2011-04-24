@@ -5,7 +5,7 @@ require 'twitter'
 require 'yaml'
 
 
-CONF_FILE = "#{ENV['HOME']}/.twitter.conf"
+CONF_FILE = "#{ENV['HOME']}/.tw.conf"
 
 
 ## conf
