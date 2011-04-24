@@ -49,4 +49,5 @@ list timeline
 search
 
     % tw ?jruby
+    % tw ?#jruby
     % tw ?ruby ?sinatra

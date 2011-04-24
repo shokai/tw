@@ -68,7 +68,7 @@ if ARGV.size < 1
   exit
 end
 
-argv_search = ARGV.map{|arg| arg =~ /^\?[a-zA-Z0-9_]+$/ }
+argv_search = ARGV.map{|arg| arg =~ /^\?.+$/ }
 if argv_search.count(0) > 0 and argv_search.count(nil) < 1
   begin
     q = Twitter::Search.new.q(ARGV.shift.scan(/^\?(.+)$/).first.first)
