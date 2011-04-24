@@ -75,7 +75,7 @@ if argv_search.count(0) > 0 and argv_search.count(nil) < 1
     while !ARGV.empty?
       q.q(ARGV.shift.scan(/^\?(.+)$/).first.first)
     end
-    q.fetch.sort{|a,b|
+    q.per_page(100).fetch.sort{|a,b|
       a.id <=> b.id
     }.each{|m|
       puts "#{m.from_user} : #{m.text} - #{m.created_at}"
