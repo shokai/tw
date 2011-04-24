@@ -68,6 +68,24 @@ if ARGV.size < 1
   exit
 end
 
+argv_search = ARGV.map{|arg| arg =~ /^\?[a-zA-Z0-9_]+$/ }
+if argv_search.count(0) > 0 and argv_search.count(nil) < 1
+  begin
+    q = Twitter::Search.new.q(ARGV.shift.scan(/^\?(.+)$/).first.first)
+    while !ARGV.empty?
+      q.q(ARGV.shift.scan(/^\?(.+)$/).first.first)
+    end
+    q.fetch.sort{|a,b|
+      a.id <=> b.id
+    }.each{|m|
+      puts "#{m.from_user} : #{m.text} - #{m.created_at}"
+    }
+  rescue => e
+    STDERR.puts e
+  end
+  exit
+end
+
 argv_username = ARGV.map{|arg| arg =~ /^@[a-zA-Z0-9_]+$/ }
 if argv_username.count(0) > 0 and argv_username.count(nil) < 1
   begin
