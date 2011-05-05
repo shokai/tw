@@ -12,12 +12,10 @@ CONF_FILE = "#{ENV['HOME']}/.tw.conf"
 unless File.exists?(CONF_FILE)
   open(CONF_FILE, 'w+'){|f|
     f.puts <<-EOF
-# regist your app on twitter(http://twitter.com/apps) to get KEY and SECRET
-consumer_key: your-consumer-key
-consumer_secret: your-consumer-secret
+consumer_key: AYhhkOC8H2yTZyelz3uw
+consumer_secret: 28Ba8YyFDSPgoCYAmH5ANqOmT6qVS8gIhKnUiDbIpU
 EOF
   }
-  system "#{ENV['EDITOR']} #{CONF_FILE}"
   puts "config file => #{CONF_FILE}"
 end
 
