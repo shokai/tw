@@ -14,6 +14,7 @@ unless File.exists?(CONF_FILE)
     f.puts <<-EOF
 consumer_key: AYhhkOC8H2yTZyelz3uw
 consumer_secret: 28Ba8YyFDSPgoCYAmH5ANqOmT6qVS8gIhKnUiDbIpU
+confirm_tweet: true # true/false
 EOF
   }
   puts "config file => #{CONF_FILE}"
@@ -115,9 +116,13 @@ end
 
 begin
   message = ARGV.join(' ')
-  puts "tweet \"#{message}\"?"
-  puts '[Y/n]'
-  exit 1 if STDIN.gets.strip =~ /^n/i
+  if conf['confirm_tweet']
+    puts "tweet \"#{message}\"?"
+    puts '[Y/n]'
+    exit 1 if STDIN.gets.strip =~ /^n/i
+  else
+    puts "tweet \"#{message}\""
+  end
   res = Twitter.update message
   puts res.text
   puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id_str}"
