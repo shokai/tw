@@ -59,7 +59,7 @@ if ARGV.size < 1
     Twitter.mentions.sort{|a,b|
       a.id <=> b.id
     }.each{|m|
-      puts "#{m.user.screen_name} : #{m.text} - #{Time.parse m.created_at}"
+      puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
     }
   rescue => e
     STDERR.puts e
@@ -77,7 +77,7 @@ if argv_search.count(0) > 0 and argv_search.count(nil) < 1
     q.per_page(100).fetch.sort{|a,b|
       a.id <=> b.id
     }.each{|m|
-      puts "#{m.from_user} : #{m.text} - #{Time.parse m.created_at}"
+      puts "#{m.from_user} : #{m.text} - #{m.created_at}"
     }
   rescue => e
     STDERR.puts e
@@ -93,7 +93,7 @@ if argv_username.count(0) > 0 and argv_username.count(nil) < 1
     }.flatten.sort{|a,b|
       a.id <=> b.id
     }.each{|m|
-      puts "#{m.user.screen_name} : #{m.text} - #{Time.parse m.created_at}"
+      puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
     }
   rescue => e
     STDERR.puts e
@@ -109,7 +109,7 @@ if argv_listname.count(0) > 0 and argv_listname.count(nil) < 1
   }.flatten.uniq.sort{|a,b|
     a.id <=> b.id
   }.each{|m|
-    puts "#{m.user.screen_name} : #{m.text} - #{Time.parse m.created_at}"
+    puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
   }
   exit
 end
