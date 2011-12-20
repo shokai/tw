@@ -125,7 +125,7 @@ begin
   end
   res = Twitter.update message
   puts res.text
-  puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id_str}"
+  puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id}"
   puts res.created_at
 rescue => e
   STDERR.puts e
