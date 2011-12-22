@@ -70,11 +70,7 @@ end
 argv_search = ARGV.map{|arg| arg =~ /^\?.+$/ }
 if argv_search.count(0) > 0 and argv_search.count(nil) < 1
   begin
-    q = Twitter::Search.new.q(ARGV.shift.scan(/^\?(.+)$/).first.first)
-    while !ARGV.empty?
-      q.q(ARGV.shift.scan(/^\?(.+)$/).first.first)
-    end
-    q.per_page(100).fetch.sort{|a,b|
+    Twitter.search(ARGV.shift.scan(/^\?(.+)$/).first.first).flatten.sort{|a,b|
       a.id <=> b.id
     }.each{|m|
       puts "#{m.from_user} : #{m.text} - #{m.created_at}"

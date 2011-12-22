@@ -26,7 +26,7 @@ Use
 tweet
 
     % tw hello hello
-    % tw @shokai こにちわ
+    % tw @shokai こんにちは
     % yes | tw もう寝よう！
 
 
