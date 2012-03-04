@@ -174,7 +174,9 @@ if __FILE__ == $0
   else
     if ARGV.size == 1 and ARGV.first =~ /^-+$/
       ARGF.each do |line|
-        tw.tweet line
+        line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
+          tw.tweet message
+        end
         sleep 1
       end
     else
