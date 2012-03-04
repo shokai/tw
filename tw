@@ -143,7 +143,7 @@ EOF
     hash.flatten.sort{|a,b|
       a[:id] <=> b[:id]
     }.each{|m|
-      line = "@#{m[:user]} : #{m[:text]}  #{m[:time]}"
+      line = "#{m[:time].strftime '[%m/%d %a] (%H:%M:%S)'} @#{m[:user]} : #{m[:text]}"
       puts line.split(/(@[a-zA-Z0-9_]+)/).map{|term|
         if term =~ /@[a-zA-Z0-9_]+/
           term = term.color(color_code term).bright.underline
