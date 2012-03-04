@@ -161,33 +161,33 @@ if __FILE__ == $0
   if ARGV.size < 1
     Tw.display tw.mentions
   elsif Tw.all_cmds? ARGV
-    if ARGV.size == 1 and ARGV[0] =~ /^\-+$/
+    Tw.display ARGV.map{|arg|
+      if word = Tw.search_word?(arg)
+        res = tw.search word
+      elsif user = Tw.username?(arg)
+        res = tw.user_timeline user
+      elsif (user, list = Tw.listname?(arg)) != false
+          res = tw.list_timeline(user, list)
+      end
+      res
+    }
+  else
+    if ARGV.size == 1 and ARGV.first =~ /^-+$/
       ARGF.each do |line|
         tw.tweet line
         sleep 1
       end
     else
-      Tw.display ARGV.map{|arg|
-        if word = Tw.search_word?(arg)
-          res = tw.search word
-        elsif user = Tw.username?(arg)
-          res = tw.user_timeline user
-        elsif (user, list = Tw.listname?(arg)) != false
-          res = tw.list_timeline(user, list)
-        end
-        res
-      }
+      message = ARGV.join(' ')
+      if tw.conf['confirm_tweet']
+        puts "tweet \"#{message}\"?"
+        puts '[Y/n]'
+        exit if STDIN.gets.strip =~ /^n/i
+      else
+        puts "tweet \"#{message}\""
+      end
+      tw.tweet message
     end
-  else
-    message = ARGV.join(' ')
-    if tw.conf['confirm_tweet']
-      puts "tweet \"#{message}\"?"
-      puts '[Y/n]'
-      exit if STDIN.gets.strip =~ /^n/i
-    else
-      puts "tweet \"#{message}\""
-    end
-    tw.tweet 
   end
 end
   
