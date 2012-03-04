@@ -142,7 +142,7 @@ EOF
   def self.display(hash)
     hash.flatten.sort{|a,b|
       a[:id] <=> b[:id]
-    }.each{|m|
+    }.uniq.each{|m|
       line = "#{m[:time].strftime '[%m/%d %a] (%H:%M:%S)'} @#{m[:user]} : #{m[:text]}"
       puts line.split(/(@[a-zA-Z0-9_]+)/).map{|term|
         if term =~ /@[a-zA-Z0-9_]+/
