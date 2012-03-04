@@ -5,125 +5,167 @@ require 'twitter'
 require 'yaml'
 require 'time'
 
-CONF_FILE = "#{ENV['HOME']}/.tw.conf"
+class Tw
 
+  class Error < StandardError
+  end
 
-## conf
-unless File.exists?(CONF_FILE)
-  open(CONF_FILE, 'w+'){|f|
-    f.puts <<-EOF
+  attr_reader :conf
+
+  def initialize(conf_file = "#{ENV['HOME']}/.tw.conf")
+    @conf_file = conf_file
+    unless File.exists?(@conf_file)
+      open(@conf_file, 'w+'){|f|
+        f.puts <<-EOF
 consumer_key: AYhhkOC8H2yTZyelz3uw
 consumer_secret: 28Ba8YyFDSPgoCYAmH5ANqOmT6qVS8gIhKnUiDbIpU
 confirm_tweet: true # true/false
 EOF
-  }
-  puts "config file => #{CONF_FILE}"
-end
-
-conf = YAML.load open(CONF_FILE).read
-
-## auth
-if !conf['access_token'] or !conf['access_secret']
-  consumer = OAuth::Consumer.new(conf['consumer_key'], conf['consumer_secret'],
-                                :site => 'http://twitter.com')
-  begin
-    request_token = consumer.get_request_token
-    puts "open #{request_token.authorize_url}"
-    system "open #{request_token.authorize_url}"
-    print 'input PIN Number: '
-    oauth_verifier = gets.strip
-    access_token = request_token.get_access_token(:oauth_verifier => oauth_verifier)
-    conf['access_token'] = access_token.token
-    conf['access_secret'] = access_token.secret
-  rescue => e
-    STDERR.puts e
-    puts "check config file(#{CONF_FILE}) and twitter.com status."
-    exit 1
+      }
+      puts "config file => #{@conf_file}"
+    end
+    @conf = YAML.load open(@conf_file).read
+    
+    auth
   end
-  open(CONF_FILE,'w+'){|f|
-    f.puts conf.to_yaml
-  }
-end
 
+  def auth
+    if !@conf['access_token'] or !@conf['access_secret']
+      consumer = OAuth::Consumer.new(@conf['consumer_key'], @conf['consumer_secret'],
+                                     :site => 'http://twitter.com')
+      begin
+        request_token = consumer.get_request_token
+        puts "open #{request_token.authorize_url}"
+        system "open #{request_token.authorize_url}"
+        print 'input PIN Number: '
+        oauth_verifier = gets.strip
+        access_token = request_token.get_access_token(:oauth_verifier => oauth_verifier)
+        @conf['access_token'] = access_token.token
+        @conf['access_secret'] = access_token.secret
+      rescue => e
+        raise Error.new "#{e.to_s}\ncheck config file(#{@conf_file}) and twitter.com status."
+      end
+      open(@conf_file,'w+'){|f|
+        f.puts @conf.to_yaml
+      }
+    end
 
-## tweet
-Twitter.configure do |config|
-  config.consumer_key = conf['consumer_key']
-  config.consumer_secret = conf['consumer_secret']
-  config.oauth_token = conf['access_token']
-  config.oauth_token_secret = conf['access_secret']
-end
+    Twitter.configure do |config|
+      config.consumer_key = @conf['consumer_key']
+      config.consumer_secret = @conf['consumer_secret']
+      config.oauth_token = @conf['access_token']
+      config.oauth_token_secret = @conf['access_secret']
+    end
+  end
 
-if ARGV.size < 1
-  begin
-    Twitter.mentions.sort{|a,b|
-      a.id <=> b.id
-    }.each{|m|
-      puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
+  def mentions
+    Twitter.mentions.map{|m|
+      {
+        :id => m.id,
+        :user => m.user.screen_name,
+        :text => m.text,
+        :time => m.created_at
+      }
     }
-  rescue => e
-    STDERR.puts e
   end
-  exit
-end
 
-argv_search = ARGV.map{|arg| arg =~ /^\?.+$/ }
-if argv_search.count(0) > 0 and argv_search.count(nil) < 1
-  begin
-    Twitter.search(ARGV.shift.scan(/^\?(.+)$/).first.first).flatten.sort{|a,b|
-      a.id <=> b.id
-    }.each{|m|
-      puts "#{m.from_user} : #{m.text} - #{m.created_at}"
+  def search(word)
+    Twitter.search(word).map{|m|
+      {
+        :id => m.id,
+        :user => m.from_user,
+        :text => m.text,
+        :time => m.created_at
+      }
     }
-  rescue => e
-    STDERR.puts e
   end
-  exit
-end
 
-argv_username = ARGV.map{|arg| arg =~ /^@[a-zA-Z0-9_]+$/ }
-if argv_username.count(0) > 0 and argv_username.count(nil) < 1
-  begin
-    ARGV.map{|name|
-      Twitter.user_timeline(name.scan(/@(.+)/).first.first)
-    }.flatten.sort{|a,b|
-      a.id <=> b.id
-    }.each{|m|
-      puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
+  def user_timeline(user)
+    Twitter.user_timeline(user).map{|m|
+      {
+        :id => m.id,
+        :user => m.user.screen_name,
+        :text => m.text,
+        :time => m.created_at
+      }
     }
-  rescue => e
-    STDERR.puts e
   end
-  exit
+
+  def list_timeline(user,list)
+    Twitter.list_timeline(user, list).map{|m|
+      {
+        :id => m.id,
+        :user => m.user.screen_name,
+        :text => m.text,
+        :time => m.created_at
+      }
+    }
+  end
+
+  def tweet(message)
+    res = Twitter.update message
+    puts res.text
+    puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id}"
+    puts res.created_at
+  end
+
+  def self.search_word?(str)
+    str =~ /^\?.+$/ ? str.scan(/^\?(.+)$/)[0][0] : false
+  end
+
+  def self.username?(str)
+    str =~ /^@[a-zA-Z0-9_]+$/ ? str.scan(/^@([a-zA-Z0-9_]+)$/)[0][0] : false
+  end
+
+  def self.listname?(str)
+    if str =~ /^@[a-zA-Z0-9_]+\/[a-zA-Z0-9_]+$/
+      return str.scan(/^@([a-zA-Z0-9_]+)\/([a-zA-Z0-9_]+)$/).first
+    end
+    false
+  end
+
+  def self.cmd?(str)
+    search_word?(str) ||  username?(str) || listname?(str)
+  end
+
+  def self.all_cmds?(argv)
+    argv.map{|arg| Tw.cmd? arg}.count(false) > 1
+  end
 end
 
-argv_listname = ARGV.map{|arg| arg =~ /^@[a-zA-Z0-9_]+\/[a-zA-Z0-9_]+$/ }
-if argv_listname.count(0) > 0 and argv_listname.count(nil) < 1
-  ARGV.map{|arg|
-    user, listname = arg.scan(/^@([a-zA-Z0-9_]+)\/([a-zA-Z0-9_]+)$/).first
-    Twitter.list_timeline(user, listname)
-  }.flatten.uniq.sort{|a,b|
-    a.id <=> b.id
-  }.each{|m|
-    puts "#{m.user.screen_name} : #{m.text} - #{m.created_at}"
-  }
-  exit
-end
 
-begin
-  message = ARGV.join(' ')
-  if conf['confirm_tweet']
-    puts "tweet \"#{message}\"?"
-    puts '[Y/n]'
-    exit 1 if STDIN.gets.strip =~ /^n/i
+if __FILE__ == $0
+  tw = Tw.new
+  
+  def display(hash)
+    hash.flatten.sort{|a,b|
+      a[:id] <=> b[:id]
+    }.each{|m|
+      puts "@#{m[:user]} : #{m[:text]}  #{m[:time]}"
+    }
+  end
+
+  if ARGV.size < 1
+    display tw.mentions
+  elsif Tw.all_cmds? ARGV
+    if @conf['confirm_tweet']
+      puts "tweet \"#{message}\"?"
+      puts '[Y/n]'
+      exit if STDIN.gets.strip =~ /^n/i
+    else
+      puts "tweet \"#{message}\""
+    end
+    tw.tweet ARGV.join(' ')
   else
-    puts "tweet \"#{message}\""
+    display ARGV.map{|arg|
+      if word = Tw.search_word?(arg)
+        res = tw.search word
+      elsif user = Tw.username?(arg)
+        res = tw.user_timeline user
+      elsif (user, list = Tw.listname?(arg)) != false
+        res = tw.list_timeline(user, list)
+      end
+      res
+    }
   end
-  res = Twitter.update message
-  puts res.text
-  puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id}"
-  puts res.created_at
-rescue => e
-  STDERR.puts e
 end
-
