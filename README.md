@@ -27,7 +27,11 @@ tweet
 
     % tw hello hello
     % tw @shokai こんにちは
-    % yes | tw もう寝よう！
+
+
+pipe tweet
+
+    % echo "もう寝よう！" | tw
 
 
 mentions
@@ -52,3 +56,7 @@ search
     % tw ?jruby
     % tw ?#jruby
     % tw ?ruby ?sinatra
+
+combination
+
+    % tw @shokai/homu @shokai_log ?jruby
