@@ -4,6 +4,7 @@ require 'oauth'
 require 'twitter'
 require 'yaml'
 require 'time'
+require 'rainbow'
 
 class Tw
 
@@ -138,10 +139,25 @@ if __FILE__ == $0
   tw = Tw.new
   
   def display(hash)
+    
+    def color_code(str)
+      colors = Sickill::Rainbow::TERM_COLORS.keys - [:default]
+      n = str.each_byte.map{|c| c.to_i}.inject{|a,b|a+b}
+      colors[n%colors.size]
+    end
+
     hash.flatten.sort{|a,b|
       a[:id] <=> b[:id]
     }.each{|m|
-      puts "@#{m[:user]} : #{m[:text]}  #{m[:time]}"
+      line = "@#{m[:user]} : #{m[:text]}  #{m[:time]}"
+      line.split(/(@[a-zA-Z0-9_]+)/).each{|term|
+        unless term =~ /@[a-zA-Z0-9_]+/
+          print term
+        else
+          print term.color(color_code term).bright.underline
+        end
+      }
+      print "\n"
     }
   end
 

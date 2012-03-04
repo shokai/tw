@@ -17,7 +17,7 @@ Install
 Install Dependencies
 --------------------
 
-    % gem install oauth twitter
+    % gem install oauth twitter rainbow
 
 
 Use
