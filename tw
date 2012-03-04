@@ -130,7 +130,7 @@ EOF
   end
 
   def self.all_cmds?(argv)
-    argv.map{|arg| Tw.cmd? arg}.count(false) > 1
+    argv.map{|arg| Tw.cmd? arg}.count(false) < 1
   end
 end
 
