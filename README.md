@@ -31,7 +31,8 @@ tweet
 
 pipe tweet
 
-    % echo "もう寝よう！" | tw
+    % echo "もう寝よう！" | tw -
+    % cat 長文.txt | tw -
 
 
 mentions
