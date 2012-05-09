@@ -182,9 +182,14 @@ if __FILE__ == $0
     else
       message = ARGV.join(' ')
       if tw.conf['confirm_tweet']
-        puts "tweet \"#{message}\"?"
-        puts '[Y/n]'
-        exit if STDIN.gets.strip =~ /^n/i
+        if (len = message.split(//u).size) > 140
+          puts "tweet too long (#{len} chars)"
+          exit 1
+        else
+          puts "tweet \"#{message}\"?  (#{len} chars)"
+          puts '[Y/n]'
+          exit if STDIN.gets.strip =~ /^n/i
+        end
       else
         puts "tweet \"#{message}\""
       end
