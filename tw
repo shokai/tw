@@ -71,7 +71,7 @@ EOF
   end
 
   def search(word)
-    Twitter.search(word).map{|m|
+    Twitter.search(word).results.map{|m|
       {
         :id => m.id,
         :user => m.from_user,
