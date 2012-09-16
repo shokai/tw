@@ -18,4 +18,8 @@ module Tw
 
   class Error < StandardError
   end
+
+  def self.help
+    open(File.expand_path '../README.rdoc', File.dirname(__FILE__)).read
+  end
 end

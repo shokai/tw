@@ -3,10 +3,15 @@ module Tw
   class Client
 
     def initialize
-      if Conf['users'].empty? or !Conf['default_user']
+      if Conf['users'].empty? or !Conf['default_user'] or Opts.params['user:add']
         add_user
       else
-        auth Conf['users'][Conf['default_user']]
+        name = Opts.params['user'] || Conf['default_user']
+        unless Conf['users'].include? name
+          raise ArgumentError, "user \"#{name}\" not exists.
+% tw --user:add"
+        end
+        auth Conf['users'][name]
       end
     end
 
@@ -26,7 +31,7 @@ module Tw
       puts cmd = "open #{request_token.authorize_url}"
       system cmd
       print 'input PIN Number: '
-      verifier = gets.strip
+      verifier = STDIN.gets.strip
       access_token = request_token.get_access_token(:oauth_verifier => verifier)
       self.auth('access_token' => access_token.token,
                 'access_secret' => access_token.secret)
