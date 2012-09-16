@@ -4,8 +4,11 @@ module Tw
 
     def self.default
       {
+        'version' => Tw::VERSION,
         'consumer_key' => 'AYhhkOC8H2yTZyelz3uw',
-        'consumer_secret' => '28Ba8YyFDSPgoCYAmH5ANqOmT6qVS8gIhKnUiDbIpU'
+        'consumer_secret' => '28Ba8YyFDSPgoCYAmH5ANqOmT6qVS8gIhKnUiDbIpU',
+        'default_user' => nil,
+        'users' => {}
       }
     end
 
@@ -18,7 +21,7 @@ module Tw
     end
 
     def self.conf_file
-      "#{ENV['HOME']}/.tw.conf"
+      "#{ENV['HOME']}/.tw.yml"
     end
 
     def self.conf
@@ -38,6 +41,17 @@ module Tw
                   )
     end
 
+    def self.to_yaml
+      self.conf.to_yaml
+    end
+
+    def self.save
+      open_conf_file('w+') do |f|
+        f.write conf.to_yaml
+      end
+    end
+
+    private
     def self.open_conf_file(opt=nil, &block)
       if block_given?
         yield open(self.conf_file, opt)
@@ -45,10 +59,5 @@ module Tw
         return open(self.conf_file, opt)
       end
     end
-
-    def self.to_yaml
-      self.conf.to_yaml
-    end
-
   end
 end
