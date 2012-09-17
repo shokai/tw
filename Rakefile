@@ -14,8 +14,8 @@ $hoe = Hoe.spec 'tw' do
   self.developer 'Sho Hashimoto', 'hashimoto@shokai.org'
   self.rubyforge_name       = self.name # TODO this is default value
   self.extra_deps         = [['oauth','>= 0.4.7', '< 1.0.0'],
-                            ['twitter', '>= 3.7.0', '< 4.0.0'],
-                            ['rainbow', '>= 1.1.4', '< 2.0.0']]
+                             ['twitter', '>= 3.7.0', '< 4.0.0'],
+                             ['rainbow', '>= 1.1.4', '< 2.0.0']]
 
 end
 
