@@ -20,6 +20,15 @@ end
 
 c = Tw::Client.new
 
+if Tw::Opts.params['pipe']
+  STDIN.read.split(/[\r\n]+/).each do |line|
+    line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
+      c.tweet message
+    end
+    sleep 1
+  end
+  exit
+end
 if Tw::Opts.argv.size < 1
   Tw::Render.display c.mentions
 elsif Tw::Opts.all_requests?
@@ -34,23 +43,14 @@ elsif Tw::Opts.all_requests?
     res
   }
 else
-  if Tw::Opts.argv.size == 1 and Tw::Opts.argv.first =~ /^-+$/
-    ARGF.each do |line|
-      line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
-        c.tweet message
-      end
-      sleep 1
-    end
+  message = Tw::Opts.argv.join(' ')
+  if (len = message.split(//u).size) > 140
+    puts "tweet too long (#{len} chars)"
+    exit 1
   else
-    message = Tw::Opts.argv.join(' ')
-    if (len = message.split(//u).size) > 140
-      puts "tweet too long (#{len} chars)"
-      exit 1
-    else
-      puts "tweet \"#{message}\"?  (#{len} chars)"
-      puts '[Y/n]'
-      exit if STDIN.gets.strip =~ /^n/i
-    end
-    c.tweet message
+    puts "tweet \"#{message}\"?  (#{len} chars)"
+    puts '[Y/n]'
+    exit if STDIN.gets.strip =~ /^n/i
   end
+  c.tweet message
 end
