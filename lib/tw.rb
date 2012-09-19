@@ -8,10 +8,11 @@ require 'yaml'
 require 'time'
 require 'rainbow'
 require 'tw/auth'
-require 'tw/client'
+require 'tw/client/auth'
+require 'tw/client/request'
 require 'tw/conf'
 require 'tw/opts'
-require 'tw/render'
+require 'tw/app/render'
 
 module Tw
   VERSION = '0.0.1'

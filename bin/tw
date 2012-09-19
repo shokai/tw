@@ -2,25 +2,25 @@
 require File.expand_path '../lib/tw', File.dirname(__FILE__)
 
 Tw::Opts.parse ARGV
-if Tw::Opts.params['help']
+if Tw::Opts['help']
   puts Tw.help
   exit
-elsif Tw::Opts.params['user:list']
+elsif Tw::Opts['user:list']
   Tw::Conf['users'].keys.each do |name|
     puts name == Tw::Conf['default_user'] ? "* #{name}" : "  #{name}"
   end
   puts "(#{Tw::Conf['users'].size} users)"
   exit
-elsif Tw::Opts.params['user:default']
-  Tw::Conf['default_user'] = Tw::Opts.params['user:default']
+elsif Tw::Opts['user:default']
+  Tw::Conf['default_user'] = Tw::Opts['user:default']
   Tw::Conf.save
-  puts "set default user \"@#{Tw::Opts.params['user:default']}\""
+  puts "set default user \"@#{Tw::Opts['user:default']}\""
   exit
 end
 
 c = Tw::Client.new
 
-if Tw::Opts.params['pipe']
+if Tw::Opts['pipe']
   STDIN.read.split(/[\r\n]+/).each do |line|
     line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
       c.tweet message

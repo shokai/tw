@@ -2,14 +2,22 @@
 module Tw
   class Opts
 
-    def self.initialize
+    def self.init
       @@argv = []
       @@params = {}
     end
-    initialize
+    init
 
-    def self.params
+    def self.inspect
       @@params
+    end
+
+    def self.[](key)
+      @@params[key]
+    end
+
+    def self.[]=(key,value)
+      @@params[key] = value
     end
     
     def self.argv
@@ -17,14 +25,14 @@ module Tw
     end
     
     def self.parse(argv)
-      self.initialize
+      self.init
       argv.each do |arg|
         k,v = param?(arg)
         unless k
           self.argv.push arg
           next
         end
-        self.params[k] = v
+        @@params[k] = v
       end
     end
 

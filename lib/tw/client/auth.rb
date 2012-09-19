@@ -3,10 +3,10 @@ module Tw
   class Client
 
     def initialize
-      if Conf['users'].empty? or !Conf['default_user'] or Opts.params['user:add']
+      if Conf['users'].empty? or !Conf['default_user'] or Opts['user:add']
         add_user
       else
-        name = Opts.params['user'] || Conf['default_user']
+        name = Opts['user'] || Conf['default_user']
         unless Conf['users'].include? name
           raise ArgumentError, "user \"#{name}\" not exists.
 % tw --user:add"
