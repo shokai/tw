@@ -1,5 +1,5 @@
 
-module Tw
+module Tw::App
   class Render
     def self.color_code(str)
       colors = Sickill::Rainbow::TERM_COLORS.keys - [:default, :black, :white]

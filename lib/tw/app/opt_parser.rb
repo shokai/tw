@@ -1,38 +1,26 @@
 
-module Tw
-  class Opts
+module Tw::App
+  class OptParser
 
     def self.init
       @@argv = []
-      @@params = {}
     end
     init
 
-    def self.inspect
-      @@params
-    end
-
-    def self.[](key)
-      @@params[key]
-    end
-
-    def self.[]=(key,value)
-      @@params[key] = value
-    end
-    
     def self.argv
       @@argv
     end
-    
+
     def self.parse(argv)
       self.init
+      Tw::Opts.init
       argv.each do |arg|
         k,v = param?(arg)
         unless k
           self.argv.push arg
           next
         end
-        @@params[k] = v
+        Tw::Opts[k] = v
       end
     end
 
@@ -64,5 +52,5 @@ module Tw
     def self.all_requests?(argv=self.argv)
       argv.map{|arg| request? arg}.count(false) < 1
     end
-  end
+  end  
 end

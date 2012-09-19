@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require File.expand_path '../lib/tw', File.dirname(__FILE__)
 
-Tw::Opts.parse ARGV
+Tw::App::OptParser.parse ARGV
 if Tw::Opts['help']
   puts Tw.help
   exit
@@ -29,21 +29,21 @@ if Tw::Opts['pipe']
   end
   exit
 end
-if Tw::Opts.argv.size < 1
-  Tw::Render.display c.mentions
-elsif Tw::Opts.all_requests?
-  Tw::Render.display Tw::Opts.argv.map{|arg|
-    if word = Tw::Opts.search_word?(arg)
+if Tw::App::OptParser.argv.size < 1
+  Tw::App::Render.display c.mentions
+elsif Tw::App::OptParser.all_requests?
+  Tw::App::Render.display Tw::App::OptParser.argv.map{|arg|
+    if word = Tw::App::OptParser.search_word?(arg)
       res = c.search word
-    elsif user = Tw::Opts.username?(arg)
+    elsif user = Tw::App::OptParser.username?(arg)
       res = c.user_timeline user
-    elsif (user, list = Tw::Opts.listname?(arg)) != false
+    elsif (user, list = Tw::App::OptParser.listname?(arg)) != false
       res = c.list_timeline(user, list)
     end
     res
   }
 else
-  message = Tw::Opts.argv.join(' ')
+  message = Tw::App::OptParser.argv.join(' ')
   if (len = message.split(//u).size) > 140
     puts "tweet too long (#{len} chars)"
     exit 1
