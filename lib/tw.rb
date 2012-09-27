@@ -1,7 +1,6 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
-require 'rubygems'
 require 'oauth'
 require 'twitter'
 require 'yaml'
@@ -11,8 +10,6 @@ require 'tw/conf'
 require 'tw/client/auth'
 require 'tw/client/request'
 require 'tw/client/opts'
-require 'tw/app/render'
-require 'tw/app/opt_parser'
 
 module Tw
   VERSION = '0.0.1'

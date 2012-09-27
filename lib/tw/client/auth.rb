@@ -3,19 +3,19 @@ module Tw
   class Client
 
     def initialize
-      if Conf['users'].empty? or !Conf['default_user'] or Opts['user:add']
-        add_user
-      else
-        name = Opts['user'] || Conf['default_user']
-        unless Conf['users'].include? name
-          raise ArgumentError, "user \"#{name}\" not exists.
-% tw --user:add"
-        end
-        auth Conf['users'][name]
-      end
     end
 
     def auth(user)
+      user = Conf['default_user'] unless user
+      if user == nil and Conf['users'].empty?
+        add_user
+        return
+      end
+      raise ArgumentError, "Argument must be instance of String or Hash." unless [Hash, String].include? user.class
+      if user.class == String
+        raise ArgumentError, "user \"#{user}\" not exists." unless Conf['users'].include? user
+        user = Conf['users'][user]
+      end
       Twitter.configure do |c|
         c.consumer_key = Conf['consumer_key']
         c.consumer_secret = Conf['consumer_secret']
@@ -43,6 +43,7 @@ module Tw
       }
       Conf['default_user'] = u.screen_name unless Conf['default_user']
       Conf.save
+      puts "add \"@#{u.screen_name}\""
     end
 
   end

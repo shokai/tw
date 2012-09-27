@@ -1,56 +1,8 @@
 #!/usr/bin/env ruby
-require File.expand_path '../lib/tw', File.dirname(__FILE__)
+$:.unshift File.expand_path '../lib', File.dirname(__FILE__)
+require 'rubygems'
+require 'tw'
+require 'tw/app/main'
 
-Tw::App::OptParser.parse ARGV
-if Tw::Opts['help']
-  puts Tw.help
-  exit
-elsif Tw::Opts['user:list']
-  Tw::Conf['users'].keys.each do |name|
-    puts name == Tw::Conf['default_user'] ? "* #{name}" : "  #{name}"
-  end
-  puts "(#{Tw::Conf['users'].size} users)"
-  exit
-elsif Tw::Opts['user:default']
-  Tw::Conf['default_user'] = Tw::Opts['user:default']
-  Tw::Conf.save
-  puts "set default user \"@#{Tw::Opts['user:default']}\""
-  exit
-end
-
-c = Tw::Client.new
-
-if Tw::Opts['pipe']
-  STDIN.read.split(/[\r\n]+/).each do |line|
-    line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
-      c.tweet message
-    end
-    sleep 1
-  end
-  exit
-end
-if Tw::App::OptParser.argv.size < 1
-  Tw::App::Render.display c.mentions
-elsif Tw::App::OptParser.all_requests?
-  Tw::App::Render.display Tw::App::OptParser.argv.map{|arg|
-    if word = Tw::App::OptParser.search_word?(arg)
-      res = c.search word
-    elsif user = Tw::App::OptParser.username?(arg)
-      res = c.user_timeline user
-    elsif (user, list = Tw::App::OptParser.listname?(arg)) != false
-      res = c.list_timeline(user, list)
-    end
-    res
-  }
-else
-  message = Tw::App::OptParser.argv.join(' ')
-  if (len = message.split(//u).size) > 140
-    puts "tweet too long (#{len} chars)"
-    exit 1
-  else
-    puts "tweet \"#{message}\"?  (#{len} chars)"
-    puts '[Y/n]'
-    exit if STDIN.gets.strip =~ /^n/i
-  end
-  c.tweet message
-end
+app = Tw::App.new
+app.run ARGV

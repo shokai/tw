@@ -11,6 +11,10 @@ module Tw
       @@params
     end
 
+    def self.keys
+      @@params.keys
+    end
+
     def self.[](key)
       @@params[key]
     end
