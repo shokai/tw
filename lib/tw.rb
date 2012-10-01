@@ -5,19 +5,14 @@ require 'oauth'
 require 'twitter'
 require 'yaml'
 require 'time'
+require 'args_parser'
 require 'rainbow'
 require 'tw/conf'
 require 'tw/client/auth'
 require 'tw/client/request'
 require 'tw/client/opts'
+require 'tw/client/error'
 
 module Tw
   VERSION = '0.0.1'
-
-  class Error < StandardError
-  end
-
-  def self.help
-    open(File.expand_path '../README.rdoc', File.dirname(__FILE__)).read
-  end
 end

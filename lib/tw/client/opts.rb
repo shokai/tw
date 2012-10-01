@@ -1,7 +1,7 @@
 
 module Tw
   class Opts
-
+    
     def self.init
       @@params = {}
     end
