@@ -10,7 +10,6 @@ require 'rainbow'
 require 'tw/conf'
 require 'tw/client/auth'
 require 'tw/client/request'
-require 'tw/client/opts'
 require 'tw/client/error'
 
 module Tw

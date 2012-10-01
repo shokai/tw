@@ -25,7 +25,7 @@ module Tw::App
 
       cmds.each do |name, cmd|
         next unless @parser[name]
-        cmd.call Tw::Opts[name]
+        cmd.call @parser[name]
         return
       end
       
