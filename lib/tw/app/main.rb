@@ -23,6 +23,11 @@ module Tw::App
         arg :help, 'show help', :alias => :h
       end
 
+      if @parser.has_option? :help
+        STDERR.puts @parser.help
+        exit 1
+      end
+
       cmds.each do |name, cmd|
         next unless @parser[name]
         cmd.call @parser[name]
