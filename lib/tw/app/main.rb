@@ -23,18 +23,13 @@ module Tw::App
         arg :help, 'show help', :alias => :h
       end
 
-      Tw::Opts.init
-      @parser.args.each do |k|
-        Tw::Opts[k] = @parser[k]
-      end
-
       cmds.each do |name, cmd|
-        next unless Tw::Opts.keys.include? name
+        next unless @parser[name]
         cmd.call Tw::Opts[name]
         return
       end
       
-      client.auth Tw::Opts['user'].class == String ? Tw::Opts['user'] : nil
+      client.auth @parser.has_param?(:user) ? @parser[:user] : nil
       if @parser.argv.size < 1
         Render.display client.mentions
       elsif all_requests?(@parser.argv)
