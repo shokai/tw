@@ -5,7 +5,7 @@ module Tw
     def initialize
     end
 
-    def auth(user)
+    def auth(user=nil)
       user = Conf['default_user'] unless user
       if user == nil and Conf['users'].empty?
         add_user
