@@ -7,8 +7,8 @@ module Tw::App
       return colors[n%colors.size]
     end
     
-    def self.display(hash)
-      hash.flatten.sort{|a,b|
+    def self.display(arr)
+      arr.flatten.sort{|a,b|
         a[:id] <=> b[:id]
       }.uniq.each{|m|
         line = "#{m[:time].strftime '[%m/%d %a] (%H:%M:%S)'} @#{m[:user]} : #{m[:text]}"
