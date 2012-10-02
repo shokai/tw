@@ -1,3 +1,9 @@
-=== 0.0.1 2011-04-22
+=== 0.0.2 2012-10-03
 
-* project start
+* support multi user accounts : --user=NAME
+* tweet from pipe : --pipe
+* option : --search=WORD
+
+=== 0.0.1 2012-09-15
+
+* first release
