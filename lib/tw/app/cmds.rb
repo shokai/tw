@@ -36,6 +36,14 @@ module Tw::App
         on_exit
       end
 
+      cmd :timeline do |v|
+        unless v.class == String
+          auth
+          Render.display client.home_timeline
+          on_exit
+        end
+      end
+
       cmd :search do |v|
         if v.class == String
           auth

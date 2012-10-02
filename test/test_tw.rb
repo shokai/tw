@@ -22,6 +22,10 @@ class TestTw < Test::Unit::TestCase
     assert response? @client.mentions
   end
 
+  def test_home_timeline
+    assert response? @client.home_timeline
+  end
+
   def test_search
     assert response? @client.search('ruby')
   end

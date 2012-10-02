@@ -24,6 +24,17 @@ module Tw
       }
     end
 
+    def home_timeline
+      Twitter.home_timeline.map{|m|
+        {
+          :id => m.id,
+          :user => m.user.screen_name,
+          :text => m.text,
+          :time => m.created_at
+        }
+      }
+    end
+
     def user_timeline(user)
       Twitter.user_timeline(user).map{|m|
         {

@@ -42,12 +42,12 @@ module Tw::App
 
     def run(argv)
       @parser = ArgsParser.parse argv, :style => :equal do
-        arg :user, 'user account'
+        arg :user, 'user account', :alias => :u
         arg 'user:add', 'add user'
         arg 'user:list', 'show user list'
         arg 'user:default', 'set default user'
-        arg :timeline, 'show timeline'
-        arg :search, 'search public timeline'
+        arg :timeline, 'show timeline', :alias => :tl
+        arg :search, 'search public timeline', :alias => :s
         arg :pipe, 'pipe tweet'
         arg :version, 'show version', :alias => :v
         arg :help, 'show help', :alias => :h
