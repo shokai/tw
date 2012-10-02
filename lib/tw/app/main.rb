@@ -18,6 +18,9 @@ module Tw::App
     def run(argv)
       @parser = ArgsParser.parse argv, :style => :equal do
         arg :user, 'user account'
+        arg 'user:add', 'add user'
+        arg 'user:list', 'show user list'
+        arg 'user:default', 'set default user'
         arg :timeline, 'show timeline'
         arg :search, 'search public timeline'
         arg :help, 'show help', :alias => :h
