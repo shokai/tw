@@ -4,6 +4,13 @@ module Tw::App
 
     private
     def regist_cmds
+      cmd :user do |v|
+        if v == true
+          STDERR.puts 'e.g.  tw "hello" --user=USERNAME'
+          on_error
+        end
+      end
+
       cmd 'user:add' do |v|
         client.add_user
         on_exit
@@ -21,9 +28,10 @@ module Tw::App
         if v.class == String
           Tw::Conf['default_user'] = v
           Tw::Conf.save
-          puts "set default user \"@#{Tw::Conf['user:default']}\""
+          puts "set default user \"@#{Tw::Conf['default_user']}\""
         else
           puts "@"+Tw::Conf['default_user'] if Tw::Conf['default_user']
+          puts "e.g.  tw --user:default=USERNAME"
         end
         on_exit
       end

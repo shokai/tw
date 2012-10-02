@@ -48,6 +48,7 @@ module Tw::App
         arg 'user:default', 'set default user'
         arg :timeline, 'show timeline'
         arg :search, 'search public timeline'
+        arg :pipe, 'pipe tweet'
         arg :help, 'show help', :alias => :h
       end
 
