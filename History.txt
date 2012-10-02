@@ -1,3 +1,7 @@
+=== 0.0.3 2012-10-03
+
+* show home timeline : --timeline
+
 === 0.0.2 2012-10-03
 
 * support multi user accounts : --user=NAME
