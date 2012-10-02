@@ -10,7 +10,6 @@ module Tw::App
   end
 
   class Main
-
     def client
       @client ||= Tw::Client.new
     end
@@ -30,6 +29,8 @@ module Tw::App
         STDERR.puts @parser.help
         exit 1
       end
+
+      regist_cmds
 
       cmds.each do |name, cmd|
         next unless @parser[name]
