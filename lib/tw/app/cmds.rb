@@ -6,6 +6,7 @@ module Tw::App
     def regist_cmds
       cmd 'user:add' do |v|
         client.add_user
+        on_exit
       end
 
       cmd 'user:list' do |v|
@@ -13,6 +14,7 @@ module Tw::App
           puts name == Tw::Conf['default_user'] ? "* #{name}" : "  #{name}"
         end
         puts "(#{Tw::Conf['users'].size} users)"
+        on_exit
       end
 
       cmd 'user:default' do |v|
@@ -23,6 +25,7 @@ module Tw::App
         else
           puts "@"+Tw::Conf['default_user'] if Tw::Conf['default_user']
         end
+        on_exit
       end
 
       cmd :pipe do |v|
@@ -32,6 +35,7 @@ module Tw::App
           end
           sleep 1
         end
+        on_exit
       end
     end
 

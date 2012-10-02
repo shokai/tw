@@ -10,8 +10,34 @@ module Tw::App
   end
 
   class Main
+    def initialize
+      on_exit do
+        exit 0
+      end
+
+      on_error do
+        exit 1
+      end
+    end
+
     def client
       @client ||= Tw::Client.new
+    end
+
+    def on_exit(&block)
+      if block_given?
+        @on_exit = block
+      else
+        @on_exit.call if @on_exit
+      end
+    end
+
+    def on_error(&block)
+      if block_given?
+        @on_error = block
+      else
+        @on_error.call if @on_error
+      end
     end
 
     def run(argv)
@@ -27,7 +53,7 @@ module Tw::App
 
       if @parser.has_option? :help
         STDERR.puts @parser.help
-        exit 1
+        on_exit
       end
 
       regist_cmds
@@ -35,7 +61,6 @@ module Tw::App
       cmds.each do |name, cmd|
         next unless @parser[name]
         cmd.call @parser[name]
-        return
       end
       
       client.auth @parser.has_param?(:user) ? @parser[:user] : nil
@@ -56,11 +81,11 @@ module Tw::App
         message = @parser.argv.join(' ')
         if (len = message.split(//u).size) > 140
           puts "tweet too long (#{len} chars)"
-          return 1
+          on_error
         else
           puts "tweet \"#{message}\"?  (#{len} chars)"
           puts '[Y/n]'
-          return 0 if STDIN.gets.strip =~ /^n/i
+          on_exit if STDIN.gets.strip =~ /^n/i
         end
         client.tweet message
       end
