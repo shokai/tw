@@ -3,6 +3,7 @@
 * support multi user accounts : --user=NAME
 * tweet from pipe : --pipe
 * option : --search=WORD
+* show version : --version
 
 === 0.0.1 2012-09-15
 

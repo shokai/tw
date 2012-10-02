@@ -57,6 +57,11 @@ module Tw::App
         end
         on_exit
       end
+
+      cmd :version do |v|
+        puts "tw version #{Tw::VERSION}"
+        on_exit
+      end
     end
 
     def cmd(name, &block)

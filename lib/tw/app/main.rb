@@ -49,6 +49,7 @@ module Tw::App
         arg :timeline, 'show timeline'
         arg :search, 'search public timeline'
         arg :pipe, 'pipe tweet'
+        arg :version, 'show version', :alias => :v
         arg :help, 'show help', :alias => :h
       end
 
