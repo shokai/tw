@@ -62,8 +62,8 @@ module Tw::App
         next unless @parser[name]
         cmd.call @parser[name]
       end
-      
-      client.auth @parser.has_param?(:user) ? @parser[:user] : nil
+
+      auth
       if @parser.argv.size < 1
         Render.display client.mentions
       elsif all_requests?(@parser.argv)
@@ -87,6 +87,12 @@ module Tw::App
         end
         client.tweet message
       end
+    end
+
+    private
+    def auth
+      return unless @parser
+      client.auth @parser.has_param?(:user) ? @parser[:user] : nil
     end
 
   end

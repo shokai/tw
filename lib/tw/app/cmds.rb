@@ -30,7 +30,7 @@ module Tw::App
 
       cmd :search do |v|
         if v.class == String
-          client.auth @parser.has_param?(:user) ? @parser[:user] : nil
+          auth
           Render.display client.search v
           on_exit
         else
@@ -40,7 +40,7 @@ module Tw::App
       end
 
       cmd :pipe do |v|
-        client.auth @parser.has_param?(:user) ? @parser[:user] : nil
+        auth
         STDIN.read.split(/[\r\n]+/).each do |line|
           line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
             client.tweet message
