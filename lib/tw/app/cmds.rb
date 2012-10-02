@@ -40,6 +40,7 @@ module Tw::App
       end
 
       cmd :pipe do |v|
+        client.auth @parser.has_param?(:user) ? @parser[:user] : nil
         STDIN.read.split(/[\r\n]+/).each do |line|
           line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
             client.tweet message
