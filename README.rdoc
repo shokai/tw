@@ -9,11 +9,16 @@
 
 == SYNOPSIS:
 
+show help
+
+  % tw --help
+
 read timeline
 
   % tw @username
   % tw @username @user2 @user3
   % tw @username/listname
+  % tw --timeline
 
 tweet
 
