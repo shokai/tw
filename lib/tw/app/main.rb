@@ -2,6 +2,7 @@
 require File.expand_path 'opt_parser', File.dirname(__FILE__)
 require File.expand_path 'cmds', File.dirname(__FILE__)
 require File.expand_path 'render', File.dirname(__FILE__)
+require File.expand_path 'helper', File.dirname(__FILE__)
 
 module Tw::App
   

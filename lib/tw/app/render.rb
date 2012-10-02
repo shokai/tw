@@ -12,12 +12,7 @@ module Tw::App
         a[:id] <=> b[:id]
       }.uniq.each{|m|
         line = "#{m[:time].strftime '[%m/%d %a] (%H:%M:%S)'} @#{m[:user]} : #{m[:text]}"
-        puts line.split(/(@[a-zA-Z0-9_]+)/).map{|term|
-          if term =~ /@[a-zA-Z0-9_]+/
-            term = term.color(color_code term).bright.underline
-          end
-          term
-        }.join('')
+        puts line.colorize(/@[a-zA-Z0-9_]+/)
       }
     end
   end
