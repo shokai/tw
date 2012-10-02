@@ -1,5 +1,6 @@
 source :rubygems
 
+gem 'hoe'
 gem 'newgem'
 gem 'oauth'
 gem 'twitter'

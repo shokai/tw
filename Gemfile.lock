@@ -33,6 +33,7 @@ PLATFORMS
 
 DEPENDENCIES
   args_parser
+  hoe
   newgem
   oauth
   rainbow
