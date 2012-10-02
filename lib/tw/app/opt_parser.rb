@@ -1,10 +1,6 @@
 
 module Tw::App
   class Main
-    def search_word?(arg)
-      arg =~ /^\?.+$/ ? arg.scan(/^\?(.+)$/)[0][0] : false
-    end
-
     def username?(arg)
       arg =~ /^@[a-zA-Z0-9_]+$/ ? arg.scan(/^@([a-zA-Z0-9_]+)$/)[0][0] : false
     end
@@ -14,7 +10,7 @@ module Tw::App
     end
 
     def request?(arg)
-      search_word?(arg) || username?(arg) || listname?(arg)
+      username?(arg) or listname?(arg)
     end
     
     def all_requests?(args)

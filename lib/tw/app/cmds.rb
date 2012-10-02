@@ -28,6 +28,17 @@ module Tw::App
         on_exit
       end
 
+      cmd :search do |v|
+        if v.class == String
+          client.auth @parser.has_param?(:user) ? @parser[:user] : nil
+          Render.display client.search v
+          on_exit
+        else
+          STDERR.puts "e.g.  tw --search=ruby"
+          on_error
+        end
+      end
+
       cmd :pipe do |v|
         STDIN.read.split(/[\r\n]+/).each do |line|
           line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|

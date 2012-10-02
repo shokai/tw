@@ -68,9 +68,7 @@ module Tw::App
         Render.display client.mentions
       elsif all_requests?(@parser.argv)
         Render.display @parser.argv.map{|arg|
-          if word = search_word?(arg)
-            res = client.search word
-          elsif user = username?(arg)
+          if user = username?(arg)
             res = client.user_timeline user
           elsif (user, list =listname?(arg)) != false
             res = client.list_timeline(user, list)
