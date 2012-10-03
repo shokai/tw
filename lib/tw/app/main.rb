@@ -49,6 +49,7 @@ module Tw::App
         arg 'user:default', 'set default user'
         arg :timeline, 'show timeline', :alias => :tl
         arg :dm, 'show direct messages'
+        arg 'dm:to', 'create direct message'
         arg :search, 'search public timeline', :alias => :s
         arg :pipe, 'pipe tweet'
         arg :version, 'show version', :alias => :v
