@@ -57,6 +57,27 @@ module Tw
       }
     end
 
+    def direct_messages
+      [Twitter.direct_messages.map{|m|
+         {
+           :id => m.id,
+           :user => m.sender.screen_name,
+           :text => m.text,
+           :time => m.created_at
+         }
+       }, Twitter.direct_messages_sent.map{|m|
+         {
+           :id => m.id,
+           :user => {
+             :from => m.sender.screen_name,
+             :to => m.recipient.screen_name
+           },
+           :text => m.text,
+           :time => m.created_at
+         }
+       }].flatten
+    end
+
     def tweet(message)
       res = Twitter.update message
       puts res.text

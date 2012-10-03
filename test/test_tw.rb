@@ -37,4 +37,8 @@ class TestTw < Test::Unit::TestCase
   def test_list_timeline
     assert response? @client.list_timeline('shokai', 'arr')
   end
+
+  def test_direct_message
+    assert response? @client.direct_messages
+  end
 end

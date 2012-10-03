@@ -44,6 +44,12 @@ module Tw::App
         end
       end
 
+      cmd :dm do |v|
+        auth
+        Render.display client.direct_messages
+        on_exit
+      end
+
       cmd :search do |v|
         if v.class == String
           auth

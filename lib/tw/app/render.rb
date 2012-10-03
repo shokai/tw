@@ -11,7 +11,8 @@ module Tw::App
       arr.flatten.sort{|a,b|
         a[:id] <=> b[:id]
       }.uniq.each{|m|
-        line = "#{m[:time].strftime '[%m/%d %a] (%H:%M:%S)'} @#{m[:user]} : #{m[:text]}"
+        user = m[:user].kind_of?(Hash) ? "@#{m[:user][:from]} > @#{m[:user][:to]}" : "@#{m[:user]}"
+        line = "#{m[:time].strftime '[%m/%d %a] (%H:%M:%S)'} #{user} : #{m[:text]}"
         puts line.colorize(/@[a-zA-Z0-9_]+/)
       }
     end
