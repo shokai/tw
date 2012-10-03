@@ -82,7 +82,7 @@ module Tw::App
       else
         message = @parser.argv.join(' ')
         if (len = message.split(//u).size) > 140
-          puts "tweet too long (#{len} chars)"
+          STDERR.puts "tweet too long (#{len} chars)"
           on_error
         else
           puts "tweet \"#{message}\"?  (#{len} chars)"

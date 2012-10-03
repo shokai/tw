@@ -50,6 +50,25 @@ module Tw::App
         on_exit
       end
 
+      cmd 'dm:to' do |to|
+        message = @parser.argv.join(' ')
+        len = message.split(//u).size
+        if len > 140
+          STDERR.puts "message too long (#{len} chars)"
+          on_error
+        elsif len < 1
+          STDERR.puts 'e.g.  tw --dm:to=USERNAME  "hello"'
+          on_error
+        else
+          puts "dm \"#{message}\"?  (#{len} chars)"
+          puts '[Y/n]'
+          on_exit if STDIN.gets.strip =~ /^n/i
+          auth
+          client.direct_message_create to, message
+        end
+        on_exit
+      end
+
       cmd :search do |v|
         if v.class == String
           auth

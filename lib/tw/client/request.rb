@@ -85,5 +85,11 @@ module Tw
       puts res.created_at
     end
 
+    def direct_message_create(to, message)
+      res = Twitter.direct_message_create to, message
+      puts res.text
+      puts res.created_at
+    end
+
   end
 end
