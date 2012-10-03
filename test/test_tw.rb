@@ -7,11 +7,16 @@ class TestTw < Test::Unit::TestCase
     @client.auth
   end
 
+  def user?(str)
+    return false unless str.kind_of? String
+    str =~ /^[a-zA-Z0-9_]+$/
+  end
+
   def response?(arr)
     return false unless arr.kind_of? Array
     arr.each do |i|
       return false if !(i[:id].class == Fixnum and
-                        i[:user] =~ /^[a-zA-Z0-9_]+$/ and
+                        (user? i[:user] or (user? i[:user][:to] and user? i[:user][:from])) and
                         i[:text].kind_of? String and
                         i[:time].kind_of? Time)
     end
