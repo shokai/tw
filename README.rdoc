@@ -13,16 +13,22 @@ show help
 
   % tw --help
 
-read timeline
+read Timeline
 
   % tw @username
   % tw @username @user2 @user3
   % tw @username/listname
   % tw --timeline
+  % tw --search=ruby
 
-tweet
+Tweet
 
   % tw hello hello
+
+DM
+
+  % tw --dm
+  % tw --dm:to=shokai "hello!"
 
 
 == INSTALL:
