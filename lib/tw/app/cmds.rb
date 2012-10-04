@@ -85,6 +85,7 @@ module Tw::App
         stream.user_stream do |s|
           Render.display s
         end
+        on_exit
       end
 
       cmd 'stream:filter' do |v|
@@ -96,6 +97,7 @@ module Tw::App
           stream.filter v do |s|
             Render.display s
           end
+          on_exit
         end
       end
 
