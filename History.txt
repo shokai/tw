@@ -1,4 +1,8 @@
-=== 0.0.4 2012-10-04
+=== 0.1.1 2012-10-04
+
+* command option detail on help
+
+=== 0.1.0 2012-10-04
 
 * show direct messages : --dm
 * create direct message : --dm:to=USERNAME

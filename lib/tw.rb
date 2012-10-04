@@ -14,7 +14,7 @@ require 'tw/client/request'
 require 'tw/client/error'
 
 module Tw
-  VERSION = '0.1.0'
+  VERSION = '0.1.1'
   class Conf
     REQUIRE_VERSION = '0.1.0'
   end
