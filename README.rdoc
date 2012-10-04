@@ -34,6 +34,21 @@ DM
   % tw --dm
   % tw --dm:to=shokai "hello!"
 
+Switch Accounts
+
+  % tw --user:add
+  open http://twitter.com/oauth/authorize?oauth_token=a1b2cDEF3456gh78
+  input PIN Number: 19283746
+  add "@user2"
+  % tw --user:list
+  * shokai
+    user2
+    user3
+  (3 users)
+  % tw hello --user=user2
+  % tw --user:default=user2
+  set default user "@user2"
+
 
 == LICENSE:
 
