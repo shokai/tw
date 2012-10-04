@@ -82,8 +82,20 @@ module Tw::App
 
       cmd :stream do |v|
         stream = Tw::Client::Stream.new @parser.has_param?(:user) ? @parser[:user] : nil
-        stream.user_stream do |s|
-          Render.display s
+        loop do
+          puts "-- waiting stream.."
+          begin
+            stream.user_stream do |s|
+              Render.display s
+            end
+          rescue Timeout::Error, SocketError => e
+            STDERR.puts '-- stream closed'
+            sleep 3
+            next
+          rescue => e
+            STDERR.puts e
+            on_error
+          end
         end
         on_exit
       end
@@ -93,9 +105,22 @@ module Tw::App
           STDERR.puts "e.g.  tw --stream:filter=ruby,java"
           on_error
         else
+          track_words = v.split(/\s*,\s*/)
           stream = Tw::Client::Stream.new @parser.has_param?(:user) ? @parser[:user] : nil
-          stream.filter v do |s|
-            Render.display s
+          loop do
+            puts "-- waiting stream..  track \"#{track_words.join(',')}\""
+            begin
+              stream.filter track_words do |s|
+                Render.display s
+              end
+            rescue Timeout::Error, SocketError => e
+              STDERR.puts '-- stream closed'
+              sleep 3
+              next
+            rescue => e
+              STDERR.puts e
+              on_error
+            end
           end
           on_exit
         end
