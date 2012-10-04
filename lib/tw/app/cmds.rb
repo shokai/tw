@@ -12,7 +12,7 @@ module Tw::App
       end
 
       cmd 'user:add' do |v|
-        client.add_user
+        Tw::Auth.regist_user
         on_exit
       end
 
@@ -81,7 +81,7 @@ module Tw::App
       end
 
       cmd :stream do |v|
-        stream = Tw::Client::Stream.new
+        stream = Tw::Client::Stream.new @parser.has_param?(:user) ? @parser[:user] : nil
         stream.user_stream do |s|
           Render.display s
         end
@@ -93,7 +93,7 @@ module Tw::App
           STDERR.puts "e.g.  tw --stream:filter=ruby,java"
           on_error
         else
-          stream = Tw::Client::Stream.new
+          stream = Tw::Client::Stream.new @parser.has_param?(:user) ? @parser[:user] : nil
           stream.filter v do |s|
             Render.display s
           end

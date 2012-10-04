@@ -2,16 +2,7 @@
 module Tw
   class Client::Stream
     def initialize(user=nil)
-      user = Conf['default_user'] unless user
-      if user == nil and Conf['users'].empty?
-        Tw::Client.add_user
-        return
-      end
-      raise ArgumentError, "Argument must be instance of String or Hash." unless [Hash, String].include? user.class
-      if user.class == String
-        raise ArgumentError, "user \"#{user}\" not exists." unless Conf['users'].include? user
-        user = Conf['users'][user]
-      end
+      user = Tw::Auth.get_or_regist_user user
       UserStream.configure do |config|
         config.consumer_key = Conf['consumer_key']
         config.consumer_secret = Conf['consumer_secret']

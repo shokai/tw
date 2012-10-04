@@ -1,21 +1,15 @@
 
 module Tw
   class Client
-
-    def initialize
-    end
-
     def auth(user=nil)
-      user = Conf['default_user'] unless user
-      if user == nil and Conf['users'].empty?
-        add_user
-        return
-      end
-      raise ArgumentError, "Argument must be instance of String or Hash." unless [Hash, String].include? user.class
-      if user.class == String
-        raise ArgumentError, "user \"#{user}\" not exists." unless Conf['users'].include? user
-        user = Conf['users'][user]
-      end
+      Auth.auth user
+    end
+  end
+
+  class Auth
+
+    def self.auth(user=nil)
+      user = get_or_regist_user user
       Twitter.configure do |c|
         c.consumer_key = Conf['consumer_key']
         c.consumer_secret = Conf['consumer_secret']
@@ -24,7 +18,19 @@ module Tw
       end
     end
 
-    def add_user
+    def self.get_or_regist_user(user)
+      return user if user.kind_of? Hash
+      if user.kind_of? String
+        raise ArgumentError, "user \"#{user}\" not exists." unless Conf['users'].include? user
+        return Conf['users'][user]
+      end
+      unless user
+        return Conf['users'][ Conf['default_user'] ] if Conf['default_user']
+        return regist_user
+      end
+    end
+
+    def self.regist_user
       consumer = OAuth::Consumer.new(Conf['consumer_key'], Conf['consumer_secret'],
                                      :site => 'http://twitter.com')
       request_token = consumer.get_request_token
@@ -44,6 +50,7 @@ module Tw
       Conf['default_user'] = u.screen_name unless Conf['default_user']
       Conf.save
       puts "add \"@#{u.screen_name}\""
+      return Conf['users'][u.screen_name]
     end
 
   end
