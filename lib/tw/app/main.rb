@@ -58,6 +58,14 @@ module Tw::App
 
       if @parser.has_option? :help
         STDERR.puts @parser.help
+        STDERR.puts
+        STDERR.puts "e.g."
+        STDERR.puts "tweet  tw hello world"
+        STDERR.puts "read   tw @username"
+        STDERR.puts "       tw @username @user2 @user2/listname"
+        STDERR.puts "       tw --search=ruby"
+        STDERR.puts "       tw --dm:to=username \"hello!\""
+        STDERR.puts "       echo 'hello' | tw --pipe"
         on_exit
       end
 
