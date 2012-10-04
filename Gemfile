@@ -1,6 +1,5 @@
 source :rubygems
 
-gem 'backports'
 gem 'hoe'
 gem 'newgem'
 gem 'oauth'

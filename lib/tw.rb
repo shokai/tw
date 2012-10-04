@@ -1,7 +1,6 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
-require 'backports'
 require 'oauth'
 require 'twitter'
 require 'time'
@@ -17,7 +16,7 @@ require 'tw/client/stream'
 require 'tw/client/error'
 
 module Tw
-  VERSION = '0.1.1'
+  VERSION = '0.2.0'
   class Conf
     REQUIRE_VERSION = '0.1.0'
   end

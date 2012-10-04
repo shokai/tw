@@ -1,3 +1,8 @@
+=== 0.2.0 2012-10-04
+
+* user stream :  --stream
+* filter stream :  --stream:filter=WORD1,WORD2
+
 === 0.1.1 2012-10-04
 
 * command option detail on help
