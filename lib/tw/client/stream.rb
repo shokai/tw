@@ -10,7 +10,6 @@ module Tw
         config.oauth_token_secret = user['access_secret']
       end
 
-      puts '-- waiting stream..'
       @client = UserStream::Client.new
     end
 
@@ -25,9 +24,7 @@ module Tw
 
     def filter(*track_words, &block)
       raise ArgumentError, 'block not given' unless block_given?
-      track_words = track_words.join(',')
-      puts "track #{track_words}"
-      @client.filter :track => track_words do |m|
+      @client.filter :track => track_words.join(',') do |m|
         if data = tweet?(m)
           yield data
         end
