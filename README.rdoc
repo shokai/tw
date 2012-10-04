@@ -1,6 +1,7 @@
 = tw
 
-* http://github.com/shokai/tw
+* http://shokai.github.com/tw
+* https://rubygems.org/gems/tw
 
 == INSTALL:
 
