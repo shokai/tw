@@ -54,6 +54,18 @@ module Tw::App
         arg :pipe, 'pipe tweet'
         arg :version, 'show version', :alias => :v
         arg :help, 'show help', :alias => :h
+
+        validate :user, 'invalid user name' do |v|
+          v =~ /^[a-zA-Z0-9_]+$/
+        end
+
+        validate 'user:default', 'invalid user name' do |v|
+          v =~ /^[a-zA-Z0-9_]+$/
+        end
+
+        validate 'dm:to', 'invalid user name' do |v|
+          v =~ /^[a-zA-Z0-9_]+$/
+        end
       end
 
       if @parser.has_option? :help
