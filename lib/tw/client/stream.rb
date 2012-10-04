@@ -26,14 +26,9 @@ module Tw
     def user_stream(&block)
       raise ArgumentError, 'block not given' unless block_given?
       @client.user do |m|
-        next unless m.user and m.user.screen_name and m.text and m.created_at and m.id
-        data = {
-          :id => m.id,
-          :user => m.user.screen_name,
-          :text => m.text,
-          :time => (Time.parse m.created_at)
-        }
-        yield data
+        if data = tweet?(m)
+          yield data
+        end
       end
     end
 
@@ -42,15 +37,21 @@ module Tw
       track_words = track_words.join(',')
       puts "track #{track_words}"
       @client.filter :track => track_words do |m|
-        next unless m.user and m.user.screen_name and m.text and m.created_at and m.id
-        data = {
-          :id => m.id,
-          :user => m.user.screen_name,
-          :text => m.text,
-          :time => (Time.parse m.created_at)
-        }
-        yield data
+        if data = tweet?(m)
+          yield data
+        end
       end
+    end
+
+    private
+    def tweet?(chunk)
+      return false unless chunk.user and chunk.user.screen_name and chunk.text and chunk.created_at and chunk.id
+      {
+        :id => chunk.id,
+        :user => chunk.user.screen_name,
+        :text => chunk.text,
+        :time => (Time.parse chunk.created_at)
+      }
     end
 
   end
