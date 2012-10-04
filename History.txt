@@ -1,3 +1,7 @@
+=== 0.2.1 2012-10-05
+
+* auto re-connect stream
+
 === 0.2.0 2012-10-04
 
 * user stream :  --stream
