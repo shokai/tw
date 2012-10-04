@@ -2,10 +2,13 @@
 
 * http://github.com/shokai/tw
 
+== INSTALL:
+
+* gem install tw
+
 == DESCRIPTION:
 
 * twitter client.
-
 
 == SYNOPSIS:
 
@@ -30,10 +33,6 @@ DM
   % tw --dm
   % tw --dm:to=shokai "hello!"
 
-
-== INSTALL:
-
-* gem install tw
 
 == LICENSE:
 

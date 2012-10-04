@@ -34,7 +34,8 @@ module Tw
                         data = YAML::load f.read
                       end
                       if data['version'] < REQUIRE_VERSION
-                        puts "your config file is old version. reset tw settings?"
+                        puts "This is tw version #{Tw::VERSION}."
+                        puts "Your config file is old ("+data['version']+"). Reset tw settings?"
                         puts "[Y/n]"
                         res = data if STDIN.gets =~ /^n/i
                       else

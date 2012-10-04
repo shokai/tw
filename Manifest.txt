@@ -7,6 +7,7 @@ Rakefile
 bin/tw
 lib/tw.rb
 lib/tw/app/cmds.rb
+lib/tw/app/helper.rb
 lib/tw/app/main.rb
 lib/tw/app/opt_parser.rb
 lib/tw/app/render.rb
