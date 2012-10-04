@@ -15,6 +15,7 @@ $hoe = Hoe.spec 'tw' do
   self.rubyforge_name       = self.name # TODO this is default value
   self.extra_deps         = [['oauth','>= 0.4.7', '< 1.0.0'],
                              ['twitter', '>= 4.0.0', '< 5.0.0'],
+                             ['userstream', '>= 1.2.0', '< 1.3.0'],
                              ['args_parser', '>= 0.1.0'],
                              ['backports', '>= 2.6.4'],
                              ['rainbow', '>= 1.1.4', '< 2.0.0']]

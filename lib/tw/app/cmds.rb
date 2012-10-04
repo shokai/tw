@@ -80,6 +80,13 @@ module Tw::App
         end
       end
 
+      cmd :stream do |v|
+        stream = Tw::Client::Stream.new
+        stream.user_stream do |s|
+          Render.display s
+        end
+      end
+
       cmd :pipe do |v|
         auth
         STDIN.read.split(/[\r\n]+/).each do |line|

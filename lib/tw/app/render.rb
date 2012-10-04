@@ -8,6 +8,7 @@ module Tw::App
     end
     
     def self.display(arr)
+      arr = [arr] unless arr.kind_of? Array
       arr.flatten.sort{|a,b|
         a[:id] <=> b[:id]
       }.uniq.each{|m|

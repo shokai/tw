@@ -4,6 +4,8 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'backports'
 require 'oauth'
 require 'twitter'
+require 'time'
+require 'user_stream'
 require 'yaml'
 require 'time'
 require 'args_parser'
@@ -11,6 +13,7 @@ require 'rainbow'
 require 'tw/conf'
 require 'tw/client/auth'
 require 'tw/client/request'
+require 'tw/client/stream'
 require 'tw/client/error'
 
 module Tw

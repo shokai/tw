@@ -1,4 +1,3 @@
-
 require File.expand_path 'opt_parser', File.dirname(__FILE__)
 require File.expand_path 'cmds', File.dirname(__FILE__)
 require File.expand_path 'render', File.dirname(__FILE__)
@@ -51,6 +50,7 @@ module Tw::App
         arg :dm, 'show direct messages'
         arg 'dm:to', 'create direct message'
         arg :search, 'search public timeline', :alias => :s
+        arg :stream, 'show user stream', :alias => :st
         arg :pipe, 'pipe tweet'
         arg :version, 'show version', :alias => :v
         arg :help, 'show help', :alias => :h
@@ -73,11 +73,12 @@ module Tw::App
         STDERR.puts
         STDERR.puts "e.g."
         STDERR.puts "tweet  tw hello world"
+        STDERR.puts "       echo 'hello' | tw --pipe"
         STDERR.puts "read   tw @username"
         STDERR.puts "       tw @username @user2 @user2/listname"
         STDERR.puts "       tw --search=ruby"
+        STDERR.puts "       tw --stream"
         STDERR.puts "       tw --dm:to=username \"hello!\""
-        STDERR.puts "       echo 'hello' | tw --pipe"
         on_exit
       end
 
