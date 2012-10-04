@@ -78,6 +78,7 @@ module Tw::App
         STDERR.puts "       tw @username @user2 @user2/listname"
         STDERR.puts "       tw --search=ruby"
         STDERR.puts "       tw --stream"
+        STDERR.puts "       tw --stream:filter=ruby,java"
         STDERR.puts "       tw --dm:to=username \"hello!\""
         on_exit
       end

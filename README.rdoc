@@ -17,6 +17,11 @@ show help
 
   % tw --help
 
+Tweet
+
+  % tw hello hello
+  % echo "hello" | tw --pipe
+
 read Timeline
 
   % tw @username
@@ -24,10 +29,8 @@ read Timeline
   % tw @username/listname
   % tw --timeline
   % tw --search=ruby
-
-Tweet
-
-  % tw hello hello
+  % tw --stream
+  % tw --stream:filter=ruby,java
 
 DM
 

@@ -37,8 +37,20 @@ module Tw
       end
     end
 
-
-    def filter(*words, &block)
+    def filter(*track_words, &block)
+      raise ArgumentError, 'block not given' unless block_given?
+      track_words = track_words.join(',')
+      puts "track #{track_words}"
+      @client.filter :track => track_words do |m|
+        next unless m.user and m.user.screen_name and m.text and m.created_at and m.id
+        data = {
+          :id => m.id,
+          :user => m.user.screen_name,
+          :text => m.text,
+          :time => (Time.parse m.created_at)
+        }
+        yield data
+      end
     end
 
   end

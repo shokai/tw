@@ -87,6 +87,18 @@ module Tw::App
         end
       end
 
+      cmd 'stream:filter' do |v|
+        unless v.class == String
+          STDERR.puts "e.g.  tw --stream:filter=ruby,java"
+          on_error
+        else
+          stream = Tw::Client::Stream.new
+          stream.filter v do |s|
+            Render.display s
+          end
+        end
+      end
+
       cmd :pipe do |v|
         auth
         STDIN.read.split(/[\r\n]+/).each do |line|
