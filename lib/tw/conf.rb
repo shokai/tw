@@ -29,8 +29,16 @@ module Tw
                   res = default
                   if File.exists? conf_file
                     begin
+                      data = nil
                       open_conf_file do |f|
-                        res = YAML::load f.read
+                        data = YAML::load f.read
+                      end
+                      if data['version'] < REQUIRE_VERSION
+                        puts "your config file is old version. reset tw settings?"
+                        puts "[Y/n]"
+                        res = data if STDIN.gets =~ /^n/i
+                      else
+                        res = data
                       end
                     rescue => e
                       STDERR.puts e
