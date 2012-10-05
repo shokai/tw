@@ -82,14 +82,13 @@ module Tw::App
 
       cmd :stream do |v|
         stream = Tw::Client::Stream.new @parser.has_param?(:user) ? @parser[:user] : nil
+        puts "-- waiting stream.."
         loop do
-          puts "-- waiting stream.."
           begin
             stream.user_stream do |s|
               Render.display s
             end
           rescue Timeout::Error, SocketError => e
-            STDERR.puts '-- stream closed'
             sleep 5
             next
           rescue => e
@@ -107,14 +106,13 @@ module Tw::App
         else
           track_words = v.split(/\s*,\s*/)
           stream = Tw::Client::Stream.new @parser.has_param?(:user) ? @parser[:user] : nil
+          puts "-- waiting stream..  track \"#{track_words.join(',')}\""
           loop do
-            puts "-- waiting stream..  track \"#{track_words.join(',')}\""
             begin
               stream.filter track_words do |s|
                 Render.display s
               end
             rescue Timeout::Error, SocketError => e
-              STDERR.puts '-- stream closed'
               sleep 5
               next
             rescue => e
