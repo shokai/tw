@@ -1,3 +1,7 @@
+=== 0.2.4 2012-10-06
+
+* require json
+
 === 0.2.3 2012-10-06
 
 * parallel request twitter API
