@@ -13,7 +13,7 @@ module Tw::App
         a[:id] <=> b[:id]
       }.uniq.each{|m|
         user = m[:user].kind_of?(Hash) ? "@#{m[:user][:from]} > @#{m[:user][:to]}" : "@#{m[:user]}"
-        line = "#{m[:time].strftime '[%m/%d %a] (%H:%M:%S)'} #{user} : #{m[:text]}"
+        line = "#{m[:time].strftime '[%m/%d %a] (%H:%M:%S)'} #{user} : #{CGI.unescapeHTML m[:text]}"
         puts line.colorize(/@[a-zA-Z0-9_]+/)
       }
     end
