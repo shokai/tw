@@ -12,6 +12,7 @@ Hoe.plugin :newgem
 # Run 'rake -T' to see list of generated tasks (from gem root directory)
 $hoe = Hoe.spec 'tw' do
   self.developer 'Sho Hashimoto', 'hashimoto@shokai.org'
+  self.post_install_message = "!! Installed \"tw\" command. => http://shokai.github.com/tw"
   self.rubyforge_name       = self.name # TODO this is default value
   self.extra_deps         = [['oauth','>= 0.4.7', '< 1.0.0'],
                              ['twitter', '>= 4.0.0', '< 5.0.0'],

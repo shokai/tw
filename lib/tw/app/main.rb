@@ -69,6 +69,9 @@ module Tw::App
       end
 
       if @parser.has_option? :help
+        STDERR.puts "Tw - Twitter client on Ruby v#{Tw::VERSION}"
+        STDERR.puts "     http://shokai.github.com/tw"
+        STDERR.puts
         STDERR.puts @parser.help
         STDERR.puts
         STDERR.puts "e.g."
