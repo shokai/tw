@@ -1,3 +1,7 @@
+=== 0.2.3 2012-10-06
+
+* parallel request twitter API
+
 === 0.2.2 2012-10-06
 
 * unescape HTML
