@@ -97,7 +97,7 @@ module Tw::App
       if @parser.argv.size < 1
         Render.display client.mentions
       elsif all_requests?(@parser.argv)
-        Render.display @parser.argv.map{|arg|
+        Render.display Parallel.map(@parser.argv, :in_threads => @parser.argv.size){|arg|
           if user = username?(arg)
             res = client.user_timeline user
           elsif (user, list =listname?(arg)) != false

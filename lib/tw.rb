@@ -10,6 +10,7 @@ require 'time'
 require 'cgi'
 require 'args_parser'
 require 'rainbow'
+require 'parallel'
 require 'tw/conf'
 require 'tw/client/auth'
 require 'tw/client/request'
@@ -22,4 +23,3 @@ module Tw
     REQUIRE_VERSION = '0.1.0'
   end
 end
-
