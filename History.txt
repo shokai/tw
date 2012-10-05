@@ -1,3 +1,7 @@
+=== 0.2.2 2012-10-06
+
+* unescape HTML
+
 === 0.2.1 2012-10-05
 
 * auto re-connect stream
