@@ -1,3 +1,8 @@
+=== 0.2.5 2012-10-10
+
+* JSON print format : --format=json
+* custom print format : --format="#{user} #{text} #{id} #{time}"
+
 === 0.2.4 2012-10-06
 
 * require json

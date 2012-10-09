@@ -52,6 +52,11 @@ Switch Accounts
   % tw --user:default=user2
   set default user "@user2"
 
+Format
+
+  % tw --format=json
+  % tw --stream --format="@#{user} #{text} - http://twitter.com/#{user}/#{id}"
+
 
 == LICENSE:
 
