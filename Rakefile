@@ -18,10 +18,9 @@ $hoe = Hoe.spec 'tw' do
                              ['twitter', '>= 4.0.0', '< 5.0.0'],
                              ['userstream', '>= 1.2.0', '< 1.3.0'],
                              ['json', '>= 1.7.5', '< 1.8.0'],
-                             ['args_parser', '>= 0.1.0'],
+                             ['args_parser', '>= 0.1.1'],
                              ['rainbow', '>= 1.1.4', '< 2.0.0'],
                              ['parallel', '>= 0.5.18', '< 1.0.0']]
-
 end
 
 require 'newgem/tasks'

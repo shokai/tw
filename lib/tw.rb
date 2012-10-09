@@ -15,6 +15,7 @@ require 'parallel'
 require 'tw/conf'
 require 'tw/client/auth'
 require 'tw/client/request'
+require 'tw/client/tweet'
 require 'tw/client/stream'
 require 'tw/client/error'
 

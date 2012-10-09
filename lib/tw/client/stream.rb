@@ -34,12 +34,10 @@ module Tw
     private
     def tweet?(chunk)
       return false unless chunk.user and chunk.user.screen_name and chunk.text and chunk.created_at and chunk.id
-      {
-        :id => chunk.id,
-        :user => chunk.user.screen_name,
-        :text => chunk.text,
-        :time => (Time.parse chunk.created_at)
-      }
+      Tw::Tweet.new(:id => chunk.id,
+                    :user => chunk.user.screen_name,
+                    :text => chunk.text,
+                    :time => (Time.parse chunk.created_at))
     end
 
   end

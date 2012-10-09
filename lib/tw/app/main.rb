@@ -85,6 +85,7 @@ module Tw::App
         STDERR.puts "       tw --stream:filter=ruby,java"
         STDERR.puts "       tw --dm:to=username \"hello!\""
         STDERR.puts "       tw --format=json"
+        STDERR.puts '       tw --format="@#{user} #{text} - http://twitter.com/#{user}/#{id}"'
         on_exit
       end
 
