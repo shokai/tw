@@ -52,6 +52,7 @@ module Tw::App
         arg :search, 'search public timeline', :alias => :s
         arg :stream, 'show user stream', :alias => :st
         arg :pipe, 'pipe tweet'
+        arg :format, 'output format', :default => 'text'
         arg :version, 'show version', :alias => :v
         arg :help, 'show help', :alias => :h
 
@@ -83,6 +84,7 @@ module Tw::App
         STDERR.puts "       tw --stream"
         STDERR.puts "       tw --stream:filter=ruby,java"
         STDERR.puts "       tw --dm:to=username \"hello!\""
+        STDERR.puts "       tw --format=json"
         on_exit
       end
 
@@ -90,12 +92,12 @@ module Tw::App
 
       cmds.each do |name, cmd|
         next unless @parser[name]
-        cmd.call @parser[name]
+        cmd.call @parser[name], @parser
       end
 
       auth
       if @parser.argv.size < 1
-        Render.display client.mentions
+        Render.display client.mentions, @parser[:format]
       elsif all_requests?(@parser.argv)
         Render.display Parallel.map(@parser.argv, :in_threads => @parser.argv.size){|arg|
           if user = username?(arg)
@@ -104,7 +106,7 @@ module Tw::App
             res = client.list_timeline(user, list)
           end
           res
-        }
+        }, @parser[:format]
       else
         message = @parser.argv.join(' ')
         if (len = message.split(//u).size) > 140

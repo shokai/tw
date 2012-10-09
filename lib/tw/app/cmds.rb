@@ -4,19 +4,19 @@ module Tw::App
 
     private
     def regist_cmds
-      cmd :user do |v|
+      cmd :user do |v, opts|
         if v == true
           STDERR.puts 'e.g.  tw "hello" --user=USERNAME'
           on_error
         end
       end
 
-      cmd 'user:add' do |v|
+      cmd 'user:add' do |v, opts|
         Tw::Auth.regist_user
         on_exit
       end
 
-      cmd 'user:list' do |v|
+      cmd 'user:list' do |v, opts|
         Tw::Conf['users'].keys.each do |name|
           puts name == Tw::Conf['default_user'] ? "* #{name}" : "  #{name}"
         end
@@ -24,7 +24,7 @@ module Tw::App
         on_exit
       end
 
-      cmd 'user:default' do |v|
+      cmd 'user:default' do |v, opts|
         if v.class == String
           Tw::Conf['default_user'] = v
           Tw::Conf.save
@@ -36,21 +36,21 @@ module Tw::App
         on_exit
       end
 
-      cmd :timeline do |v|
+      cmd :timeline do |v, opts|
         unless v.class == String
           auth
-          Render.display client.home_timeline
+          Render.display client.home_timeline, opts[:format]
           on_exit
         end
       end
 
-      cmd :dm do |v|
+      cmd :dm do |v, opts|
         auth
-        Render.display client.direct_messages
+        Render.display client.direct_messages, opts[:format]
         on_exit
       end
 
-      cmd 'dm:to' do |to|
+      cmd 'dm:to' do |to, opts|
         message = @parser.argv.join(' ')
         len = message.split(//u).size
         if len > 140
@@ -69,10 +69,10 @@ module Tw::App
         on_exit
       end
 
-      cmd :search do |v|
+      cmd :search do |v, opts|
         if v.class == String
           auth
-          Render.display client.search v
+          Render.display client.search(v), opts[:format]
           on_exit
         else
           STDERR.puts "e.g.  tw --search=ruby"
@@ -80,13 +80,13 @@ module Tw::App
         end
       end
 
-      cmd :stream do |v|
+      cmd :stream do |v, opts|
         stream = Tw::Client::Stream.new @parser.has_param?(:user) ? @parser[:user] : nil
         puts "-- waiting stream.."
         loop do
           begin
             stream.user_stream do |s|
-              Render.display s
+              Render.display s, opts[:format]
             end
           rescue Timeout::Error, SocketError => e
             sleep 5
@@ -99,7 +99,7 @@ module Tw::App
         on_exit
       end
 
-      cmd 'stream:filter' do |v|
+      cmd 'stream:filter' do |v, opts|
         unless v.class == String
           STDERR.puts "e.g.  tw --stream:filter=ruby,java"
           on_error
@@ -110,7 +110,7 @@ module Tw::App
           loop do
             begin
               stream.filter track_words do |s|
-                Render.display s
+                Render.display s, opts[:format]
               end
             rescue Timeout::Error, SocketError => e
               sleep 5
@@ -124,7 +124,7 @@ module Tw::App
         end
       end
 
-      cmd :pipe do |v|
+      cmd :pipe do |v, opts|
         auth
         STDIN.read.split(/[\r\n]+/).each do |line|
           line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
@@ -135,7 +135,7 @@ module Tw::App
         on_exit
       end
 
-      cmd :version do |v|
+      cmd :version do |v, opts|
         puts "tw version #{Tw::VERSION}"
         on_exit
       end
