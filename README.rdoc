@@ -30,7 +30,7 @@ read Timeline
   % tw --timeline
   % tw --search=ruby
   % tw --stream
-  % tw --stream:filter=ruby,java
+  % tw --stream:filter=ruby,java --silent
 
 DM
 
@@ -56,6 +56,13 @@ Format
 
   % tw --format=json
   % tw --stream --format="@#{user} #{text} - http://twitter.com/#{user}/#{id}"
+
+
+== Make Twitter Bot
+
+stream reply bot
+
+  % tw --stream:filter=BOT_NAME --user=BOT_NAME --format="@#{user} OK" --silent | tw --pipe --user=BOT_NAME
 
 
 == LICENSE:
