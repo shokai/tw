@@ -20,7 +20,7 @@ require 'tw/client/stream'
 require 'tw/client/error'
 
 module Tw
-  VERSION = '0.2.6'
+  VERSION = '0.3.0'
   class Conf
     REQUIRE_VERSION = '0.1.0'
   end

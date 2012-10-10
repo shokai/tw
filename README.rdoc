@@ -62,7 +62,7 @@ Format
 
 stream reply bot
 
-  % tw --stream:filter=BOT_NAME --user=BOT_NAME --format="@#{user} OK" --silent | tw --pipe --user=BOT_NAME
+  % tw --silent --stream:filter=BOT_NAME --user=BOT_NAME --format="@#{user} OK" | tw --pipe --user=BOT_NAME
 
 
 == LICENSE:
