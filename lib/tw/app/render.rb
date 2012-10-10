@@ -9,9 +9,11 @@ module Tw::App
     
     def self.display(arr, format)
       arr = [arr] unless arr.kind_of? Array
-      arr.flatten.sort{|a,b|
+      arr.flatten.inject({}){
+        |h,i| h[i.id]=i; h
+      }.values.sort{|a,b|
         a.id <=> b.id
-      }.uniq.each{|m|
+      }.each{|m|
         puts case format
              when 'text'
                user = m.user.kind_of?(Hash) ? "@#{m.user[:from]} > @#{m.user[:to]}" : "@#{m.user}"
