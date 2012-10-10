@@ -126,7 +126,7 @@ module Tw::App
 
       cmd :pipe do |v, opts|
         auth
-        STDIN.read.split(/[\r\n]+/).each do |line|
+        while line = STDIN.gets do
           line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
             begin
               client.tweet message
