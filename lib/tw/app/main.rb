@@ -53,6 +53,7 @@ module Tw::App
         arg :stream, 'show user stream', :alias => :st
         arg :pipe, 'pipe tweet'
         arg :format, 'output format', :default => 'text'
+        arg :silent, 'silent mode'
         arg :version, 'show version', :alias => :v
         arg :help, 'show help', :alias => :h
 
@@ -88,6 +89,8 @@ module Tw::App
         STDERR.puts '       tw --format="@#{user} #{text} - http://twitter.com/#{user}/#{id}"'
         on_exit
       end
+
+      Render.silent = @parser[:silent]
 
       regist_cmds
 

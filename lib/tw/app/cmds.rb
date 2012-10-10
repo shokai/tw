@@ -31,7 +31,7 @@ module Tw::App
           puts "set default user \"@#{Tw::Conf['default_user']}\""
         else
           puts "@"+Tw::Conf['default_user'] if Tw::Conf['default_user']
-          puts "e.g.  tw --user:default=USERNAME"
+          STDERR.puts "e.g.  tw --user:default=USERNAME"
         end
         on_exit
       end
@@ -82,7 +82,7 @@ module Tw::App
 
       cmd :stream do |v, opts|
         stream = Tw::Client::Stream.new @parser.has_param?(:user) ? @parser[:user] : nil
-        puts "-- waiting stream.."
+        Render.puts "-- waiting stream.."
         loop do
           begin
             stream.user_stream do |s|
@@ -106,7 +106,7 @@ module Tw::App
         else
           track_words = v.split(/\s*,\s*/)
           stream = Tw::Client::Stream.new @parser.has_param?(:user) ? @parser[:user] : nil
-          puts "-- waiting stream..  track \"#{track_words.join(',')}\""
+          Render.puts "-- waiting stream..  track \"#{track_words.join(',')}\""
           loop do
             begin
               stream.filter track_words do |s|

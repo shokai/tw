@@ -1,5 +1,18 @@
 module Tw::App
   class Render
+
+    def self.silent=(bool)
+      @@silent = bool ? true : false
+    end
+
+    def self.silent
+      @@silent ||= false
+    end
+
+    def self.puts(s)
+      STDOUT.puts s unless silent
+    end
+
     def self.color_code(str)
       colors = Sickill::Rainbow::TERM_COLORS.keys - [:default, :black, :white]
       n = str.each_byte.map{|c| c.to_i}.inject{|a,b|a+b}
@@ -13,7 +26,7 @@ module Tw::App
       }.values.sort{|a,b|
         a.id <=> b.id
       }.each{|m|
-        puts case format
+        STDOUT.puts case format
              when 'text'
                user = m.user.kind_of?(Hash) ? "@#{m.user[:from]} > @#{m.user[:to]}" : "@#{m.user}"
                line = "#{m.time.strftime '[%m/%d %a] (%H:%M:%S)'} #{user} : #{CGI.unescapeHTML m.text}"
