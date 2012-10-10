@@ -128,7 +128,11 @@ module Tw::App
         auth
         STDIN.read.split(/[\r\n]+/).each do |line|
           line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
-            client.tweet message
+            begin
+              client.tweet message
+            rescue => e
+              STDERR.puts e.message
+            end
           end
           sleep 1
         end

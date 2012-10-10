@@ -118,7 +118,11 @@ module Tw::App
           puts '[Y/n]'
           on_exit if STDIN.gets.strip =~ /^n/i
         end
-        client.tweet message
+        begin
+          client.tweet message
+        rescue => e
+          STDERR.puts e.message
+        end
       end
     end
 
