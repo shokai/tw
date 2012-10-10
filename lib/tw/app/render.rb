@@ -1,4 +1,3 @@
-
 module Tw::App
   class Render
     def self.color_code(str)

@@ -3,6 +3,7 @@ $:.unshift File.expand_path '../lib', File.dirname(__FILE__)
 require 'rubygems'
 require 'tw'
 require 'tw/app/main'
+$stdout.sync = true
 
 app = Tw::App.new
 app.run ARGV
