@@ -18,8 +18,16 @@ module Tw
       }.to_json(*a)
     end
 
-    def to_s(format)
-      self.instance_eval "\"#{format}\""
+    def url
+      "http://twitter.com/#{user}/status/#{id}"
+    end
+
+    def to_s
+      "@#{user} #{text} - #{time} #{url}"
+    end
+
+    def format(fmt)
+      self.instance_eval "\"#{fmt}\""
     end
   end
 end

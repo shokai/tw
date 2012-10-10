@@ -34,7 +34,7 @@ module Tw::App
              when 'json'
                m.to_json
              else
-               m.to_s format
+               m.format format
              end
       }
     end
