@@ -76,8 +76,8 @@ module Tw::App
         while line = STDIN.gets do
           line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
             begin
-              if opts.has_param? 'dm:to'.to_sym
-                puts to = opts['dm:to'.to_sym]
+              if opts.has_param? 'dm:to'
+                puts to = opts['dm:to']
                 client.direct_message_create to, message
               else
                 client.tweet message

@@ -4,7 +4,7 @@ GEM
     RedCloth (4.2.9)
     RedCloth (4.2.9-java)
     activesupport (2.3.14)
-    args_parser (0.1.0)
+    args_parser (0.1.2)
     faraday (0.8.4)
       multipart-post (~> 1.1)
     hashie (1.2.0)
