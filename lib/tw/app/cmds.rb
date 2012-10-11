@@ -51,20 +51,42 @@ module Tw::App
       end
 
       cmd 'dm:to' do |to, opts|
-        message = @parser.argv.join(' ')
-        len = message.split(//u).size
-        if len > 140
-          STDERR.puts "message too long (#{len} chars)"
-          on_error
-        elsif len < 1
-          STDERR.puts 'e.g.  tw --dm:to=USERNAME  "hello"'
-          on_error
-        else
-          puts "dm \"#{message}\"?  (#{len} chars)"
-          puts '[Y/n]'
-          on_exit if STDIN.gets.strip =~ /^n/i
-          auth
-          client.direct_message_create to, message
+        unless opts[:pipe]
+          message = @parser.argv.join(' ')
+          len = message.split(//u).size
+          if len > 140
+            STDERR.puts "message too long (#{len} chars)"
+            on_error
+          elsif len < 1
+            STDERR.puts 'e.g.  tw --dm:to=USERNAME  "hello"'
+            on_error
+          else
+            puts "dm \"#{message}\"?  (#{len} chars)"
+            puts '[Y/n]'
+            on_exit if STDIN.gets.strip =~ /^n/i
+            auth
+            client.direct_message_create to, message
+          end
+          on_exit
+        end
+      end
+
+      cmd :pipe do |v, opts|
+        auth
+        while line = STDIN.gets do
+          line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
+            begin
+              if opts.has_param? 'dm:to'.to_sym
+                puts to = opts['dm:to'.to_sym]
+                client.direct_message_create to, message
+              else
+                client.tweet message
+              end
+            rescue => e
+              STDERR.puts e.message
+            end
+          end
+          sleep 1
         end
         on_exit
       end
@@ -122,21 +144,6 @@ module Tw::App
           end
           on_exit
         end
-      end
-
-      cmd :pipe do |v, opts|
-        auth
-        while line = STDIN.gets do
-          line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
-            begin
-              client.tweet message
-            rescue => e
-              STDERR.puts e.message
-            end
-          end
-          sleep 1
-        end
-        on_exit
       end
 
       cmd :version do |v, opts|
