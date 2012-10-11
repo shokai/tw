@@ -27,10 +27,10 @@ module Tw
     def self.conf
       @@conf ||= (
                   res = default
-                  if File.exists? conf_file
+                  if File.exists? self.conf_file
                     begin
                       data = nil
-                      open_conf_file do |f|
+                      self.open_conf_file do |f|
                         data = YAML::load f.read
                       end
                       if data['version'] < REQUIRE_VERSION
@@ -43,7 +43,7 @@ module Tw
                       end
                     rescue => e
                       STDERR.puts e
-                      File.delete conf_file
+                      File.delete self.conf_file
                     end
                   end
                   res
