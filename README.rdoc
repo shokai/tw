@@ -55,7 +55,7 @@ Switch Accounts
 Format
 
   % tw --format=json
-  % tw --stream --format="@#{user} #{text} - http://twitter.com/#{user}/#{id}"
+  % tw --stream --format="@#{user} #{text} - #{url}"
 
 
 == Make Twitter Bot
