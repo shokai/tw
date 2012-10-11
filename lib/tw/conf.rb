@@ -67,6 +67,7 @@ module Tw
       else
         return open(self.conf_file, opt)
       end
+      File.chmod 0600, self.conf_file if File.exists? self.conf_file
     end
   end
 end
