@@ -1,3 +1,7 @@
+=== 0.3.2 2012-10-11
+
+* set config file permission 600
+
 === 0.3.1 2012-10-11
 
 * pipe DM
