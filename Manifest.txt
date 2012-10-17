@@ -20,6 +20,7 @@ lib/tw/client/tweet.rb
 lib/tw/conf.rb
 samples/README.md
 samples/sample.rb
+samples/stream.rb
 samples/update_profile_image.rb
 script/console
 script/destroy
