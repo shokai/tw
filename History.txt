@@ -1,3 +1,7 @@
+=== 0.3.3 2012-10-18
+
+* count 140 chars with t.co
+
 === 0.3.2 2012-10-11
 
 * set config file permission 600

@@ -13,6 +13,7 @@ lib/tw/app/opt_parser.rb
 lib/tw/app/render.rb
 lib/tw/client/auth.rb
 lib/tw/client/error.rb
+lib/tw/client/helper.rb
 lib/tw/client/request.rb
 lib/tw/client/stream.rb
 lib/tw/client/tweet.rb
@@ -24,4 +25,5 @@ script/console
 script/destroy
 script/generate
 test/test_helper.rb
+test/test_t_co.rb
 test/test_tw.rb

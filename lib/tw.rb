@@ -23,7 +23,7 @@ require 'tw/client/error'
 require 'tw/client/helper'
 
 module Tw
-  VERSION = '0.3.2'
+  VERSION = '0.3.3'
   class Conf
     REQUIRE_VERSION = '0.1.0'
   end
