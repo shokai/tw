@@ -2,7 +2,13 @@
 
 ## Tw API
 
-    % tw sample.rb hello woooorld
+    % ruby sample.rb hello woooorld
+
+
+## Tw Stream API
+
+    % ruby stream.rb
+
 
 ## Use Tw as front-end of twitter auth
 
