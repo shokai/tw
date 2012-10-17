@@ -60,6 +60,19 @@ module Tw
       end
     end
 
+    def self.update_twitter_config(force_update=false)
+      if self['twitter_config'].kind_of? Hash and
+          self['twitter_config']['last_updated_at']+60*60*24 > Time.now.to_i and
+          !force_update
+        return
+      end
+      self['twitter_config'] = {}
+      self['twitter_config']['short_url_length'] = Twitter::configuration.short_url_length
+      self['twitter_config']['short_url_length_https'] = Twitter::configuration.short_url_length_https
+      self['twitter_config']['last_updated_at'] = Time.now.to_i
+      self.save
+    end
+
     private
     def self.open_conf_file(opt=nil, &block)
       if block_given?

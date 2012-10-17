@@ -1,8 +1,10 @@
 $:.unshift(File.dirname(__FILE__)) unless
   $:.include?(File.dirname(__FILE__)) || $:.include?(File.expand_path(File.dirname(__FILE__)))
 
+$KCODE = 'u' if RUBY_VERSION < '1.9'
 require 'oauth'
 require 'twitter'
+require 'twitter-text'
 require 'time'
 require 'user_stream'
 require 'yaml'
@@ -18,6 +20,7 @@ require 'tw/client/request'
 require 'tw/client/tweet'
 require 'tw/client/stream'
 require 'tw/client/error'
+require 'tw/client/helper'
 
 module Tw
   VERSION = '0.3.2'

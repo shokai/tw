@@ -113,7 +113,7 @@ module Tw::App
         }, @parser[:format]
       else
         message = @parser.argv.join(' ')
-        if (len = message.split(//u).size) > 140
+        if (len = message.char_length_with_t_co) > 140
           STDERR.puts "tweet too long (#{len} chars)"
           on_error
         else

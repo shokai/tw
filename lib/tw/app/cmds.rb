@@ -53,7 +53,7 @@ module Tw::App
       cmd 'dm:to' do |to, opts|
         unless opts[:pipe]
           message = @parser.argv.join(' ')
-          len = message.split(//u).size
+          len = message.char_length_with_t_co
           if len > 140
             STDERR.puts "message too long (#{len} chars)"
             on_error
