@@ -1,3 +1,7 @@
+=== 0.3.6 2012-10-18
+
+* remove twitter-text gem
+
 === 0.3.5 2012-10-18
 
 * bugfix
