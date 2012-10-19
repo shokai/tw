@@ -21,7 +21,11 @@ module Tw
     end
 
     def self.conf_file
-      "#{ENV['HOME']}/.tw.yml"
+      @@conf_file ||= "#{ENV['HOME']}/.tw.yml"
+    end
+
+    def self.conf_file=(fpath)
+      @@conf_file = fpath
     end
 
     def self.conf

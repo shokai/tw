@@ -54,6 +54,7 @@ module Tw::App
         arg :pipe, 'pipe tweet'
         arg :format, 'output format', :default => 'text'
         arg :silent, 'silent mode'
+        arg :conf, 'config file', :default => Tw::Conf.conf_file
         arg :version, 'show version', :alias => :v
         arg :help, 'show help', :alias => :h
 
@@ -91,6 +92,7 @@ module Tw::App
       end
 
       Render.silent = @parser[:silent]
+      Tw::Conf.conf_file = @parser[:conf]
 
       regist_cmds
 
