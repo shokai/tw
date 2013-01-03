@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tw (0.3.7)
+    tw (0.3.8)
       args_parser (>= 0.1.2)
       json (>= 1.7.0)
       parallel (>= 0.6.0)
@@ -17,6 +17,7 @@ GEM
       multipart-post (~> 1.1)
     hashie (1.2.0)
     json (1.7.6)
+    json (1.7.6-java)
     minitest (4.3.3)
     multi_json (1.5.0)
     multipart-post (1.1.5)
