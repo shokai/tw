@@ -1,11 +1,5 @@
-source :rubygems
+source 'https://rubygems.org'
 
-gem 'hoe'
-gem 'newgem'
-gem 'oauth'
-gem 'twitter'
-gem 'userstream'
-gem 'json'
-gem 'rainbow'
-gem 'args_parser'
-gem 'parallel'
+# Specify your gem's dependencies in tw.gemspec
+gemspec
+gem 'minitest'

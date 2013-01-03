@@ -1,4 +1,6 @@
-require 'bundler'
-require 'stringio'
-require 'test/unit'
-require File.dirname(__FILE__) + '/../lib/tw'
+require 'rubygems'
+require 'bundler/setup'
+require 'minitest/autorun'
+
+$:.unshift File.expand_path '../lib', File.dirname(__FILE__)
+require 'tw'

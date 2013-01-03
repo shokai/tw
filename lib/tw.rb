@@ -19,9 +19,9 @@ require 'tw/client/tweet'
 require 'tw/client/stream'
 require 'tw/client/error'
 require 'tw/client/helper'
+require 'tw/version'
 
 module Tw
-  VERSION = '0.3.7'
   class Conf
     REQUIRE_VERSION = '0.1.0'
   end
