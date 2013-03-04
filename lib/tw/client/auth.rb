@@ -32,7 +32,7 @@ module Tw
 
     def self.regist_user
       consumer = OAuth::Consumer.new(Conf['consumer_key'], Conf['consumer_secret'],
-                                     :site => 'http://twitter.com')
+                                     :site => 'http://api.twitter.com')
       request_token = consumer.get_request_token
       puts cmd = "open #{request_token.authorize_url}"
       system cmd
