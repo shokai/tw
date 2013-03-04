@@ -1,3 +1,7 @@
+=== 0.3.9 2013-03-05
+
+* use http://api.twitter.com to auth
+
 === 0.3.8 2013-01-04
 
 * use bundler gem template
