@@ -20,6 +20,10 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'userstream', '>= 1.2.0'
   gem.add_dependency 'json', '>= 1.7.0'
   gem.add_dependency 'rainbow', '>= 1.1.4'
-  gem.add_dependency 'args_parser', '>= 0.1.2'
+  gem.add_dependency 'args_parser', '>= 0.1.4'
   gem.add_dependency 'parallel', '>= 0.6.0'
+
+  gem.add_development_dependency 'rake'
+  gem.add_development_dependency 'bundler', '~> 1.3'
+  gem.add_development_dependency 'minitest'
 end
