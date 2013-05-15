@@ -49,8 +49,8 @@ module Tw::App
         arg :timeline, 'show timeline', :alias => :tl
         arg :dm, 'show direct messages'
         arg 'dm:to', 'create direct message'
-        arg :fav, 'favorite tweet'
-        arg :rt, 'retweet'
+        arg :favorite, 'favorite tweet', :alias => :fav
+        arg :retweet, 'retweet', :alias => :rt
         arg :search, 'search public timeline', :alias => :s
         arg :stream, 'show user stream', :alias => :st
         arg :status_id, 'show status_id', :alias => :id
@@ -91,6 +91,8 @@ module Tw::App
         STDERR.puts "       tw --dm:to=username \"hello!\""
         STDERR.puts "       tw --format=json"
         STDERR.puts '       tw --format="@#{user} #{text} - http://twitter.com/#{user}/#{id}"'
+        STDERR.puts "fav    tw --fav=334739319170428929"
+        STDERR.puts "rt     tw --rt=334739319170428929"
         on_exit
       end
 

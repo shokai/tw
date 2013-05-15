@@ -71,9 +71,9 @@ module Tw::App
         end
       end
 
-      cmd :fav do |v, opts|
-        if opts.has_param? :fav
-          id = opts[:fav]
+      cmd :favorite do |v, opts|
+        if opts.has_param? :favorite
+          id = opts[:favorite]
           auth
           client.show_status id
           puts 'Fav this?'
@@ -84,9 +84,9 @@ module Tw::App
         on_exit
       end
 
-      cmd :rt do |v, opts|
-        if opts.has_param? :rt
-          id = opts[:rt]
+      cmd :retweet do |v, opts|
+        if opts.has_param? :retweet
+          id = opts[:retweet]
           auth
           client.show_status id
           puts 'RT this?'
