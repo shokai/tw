@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require File.expand_path 'test_helper', File.dirname(__FILE__)
 
-class TestTCo < MiniTest::Unit::TestCase
+class TestTCo < MiniTest::Test
 
   def setup
     @client = Tw::Client.new

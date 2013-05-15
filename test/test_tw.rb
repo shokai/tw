@@ -1,6 +1,6 @@
 require File.expand_path 'test_helper', File.dirname(__FILE__)
 
-class TestTw < MiniTest::Unit::TestCase
+class TestTw < MiniTest::Test
 
   def setup
     @client = Tw::Client.new
