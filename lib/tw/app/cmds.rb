@@ -71,6 +71,19 @@ module Tw::App
         end
       end
 
+      cmd :fav do |v, opts|
+        if opts.has_param? :fav
+          id = opts[:fav]
+          auth
+          client.show_status id
+          puts 'fav this?'
+          puts '[Y/n]'
+          on_exit if STDIN.gets.strip =~ /^n/i
+          puts "success!" if client.favorite id
+        end
+        on_exit
+      end
+
       cmd :pipe do |v, opts|
         auth
         while line = STDIN.gets do

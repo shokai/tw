@@ -77,5 +77,16 @@ module Tw
       puts res.created_at
     end
 
+    def show_status(status_id)
+      res = Twitter.status(status_id)
+      puts res.text
+      puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id}"
+      puts res.created_at
+    end
+
+    def favorite(status_id)
+      Twitter.favorite(status_id)
+    end
+
   end
 end
