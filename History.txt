@@ -1,3 +1,9 @@
+=== 0.4.0 2013-05-16
+
+* status_id  % tw --id
+* RT tweet   % tw --rt=12345136
+* Fav tweet  % tw --fav=12345136
+
 === 0.3.9 2013-03-05
 
 * use http://api.twitter.com to auth
