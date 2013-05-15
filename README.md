@@ -39,6 +39,12 @@ DM
     % tw --dm
     % tw --dm:to=shokai "hello!"
 
+Fav/RT
+
+    % tw @shokai --id
+    % tw --fav=334739319170428929
+    % tw --rt=334739319170428929
+
 Switch Accounts
 
     % tw --user:add
