@@ -9,6 +9,14 @@ module Tw::App
       @@silent ||= false
     end
 
+    def self.show_status_id=(bool)
+      @@show_status_id = bool ? true : false
+    end
+
+    def self.show_status_id
+      @@show_status_id ||= false
+    end
+
     def self.puts(s)
       STDOUT.puts s unless silent
     end
@@ -27,15 +35,16 @@ module Tw::App
         a.id <=> b.id
       }.each{|m|
         STDOUT.puts case format
-             when 'text'
-               user = m.user.kind_of?(Hash) ? "@#{m.user[:from]} > @#{m.user[:to]}" : "@#{m.user}"
-               line = "#{m.time.strftime '[%m/%d %a] (%H:%M:%S)'} #{user} : #{CGI.unescapeHTML m.text}"
-               line.colorize(/@[a-zA-Z0-9_]+/)
-             when 'json'
-               m.to_json
-             else
-               m.format format
-             end
+                    when 'text'
+                      user = m.user.kind_of?(Hash) ? "@#{m.user[:from]} > @#{m.user[:to]}" : "@#{m.user}"
+                      line = "#{m.time.strftime '[%m/%d %a] (%H:%M:%S)'} #{user} : #{CGI.unescapeHTML m.text}"
+                      line += " <#{m.id}>" if show_status_id
+                      line.colorize(/@[a-zA-Z0-9_]+/)
+                    when 'json'
+                      m.to_json
+                    else
+                      m.format format
+                    end
       }
     end
   end

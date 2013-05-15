@@ -51,6 +51,7 @@ module Tw::App
         arg 'dm:to', 'create direct message'
         arg :search, 'search public timeline', :alias => :s
         arg :stream, 'show user stream', :alias => :st
+        arg :status_id, 'show status_id', :alias => :id
         arg :pipe, 'pipe tweet'
         arg :format, 'output format', :default => 'text'
         arg :silent, 'silent mode'
@@ -92,6 +93,7 @@ module Tw::App
       end
 
       Render.silent = @parser[:silent]
+      Render.show_status_id = @parser[:status_id]
       Tw::Conf.conf_file = @parser[:conf]
 
       regist_cmds
