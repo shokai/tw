@@ -50,6 +50,7 @@ module Tw::App
         arg :dm, 'show direct messages'
         arg 'dm:to', 'create direct message'
         arg :fav, 'favorite tweet'
+        arg :rt, 'retweet'
         arg :search, 'search public timeline', :alias => :s
         arg :stream, 'show user stream', :alias => :st
         arg :status_id, 'show status_id', :alias => :id

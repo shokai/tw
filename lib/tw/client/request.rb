@@ -85,7 +85,11 @@ module Tw
     end
 
     def favorite(status_id)
-      Twitter.favorite(status_id)
+      Twitter.favorite status_id
+    end
+
+    def retweet(status_id)
+      Twitter.retweet status_id
     end
 
   end

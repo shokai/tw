@@ -76,10 +76,23 @@ module Tw::App
           id = opts[:fav]
           auth
           client.show_status id
-          puts 'fav this?'
+          puts 'Fav this?'
           puts '[Y/n]'
           on_exit if STDIN.gets.strip =~ /^n/i
           puts "success!" if client.favorite id
+        end
+        on_exit
+      end
+
+      cmd :rt do |v, opts|
+        if opts.has_param? :rt
+          id = opts[:rt]
+          auth
+          client.show_status id
+          puts 'RT this?'
+          puts '[Y/n]'
+          on_exit if STDIN.gets.strip =~ /^n/i
+          puts "success!" if client.retweet id
         end
         on_exit
       end
