@@ -106,7 +106,9 @@ module Tw::App
                 puts to = opts['dm:to']
                 client.direct_message_create to, message
               else
-                client.tweet message
+                tweet_opts = {}
+                tweet_opts[:in_reply_to_status_id] = @parser[:status_id] if @parser.has_param? :status_id
+                client.tweet message, tweet_opts
               end
             rescue => e
               STDERR.puts e.message
