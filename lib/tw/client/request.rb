@@ -64,8 +64,8 @@ module Tw
        }].flatten
     end
 
-    def tweet(message)
-      res = Twitter.update message
+    def tweet(message, opts={})
+      res = Twitter.update message, opts
       puts res.text
       puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id}"
       puts res.created_at

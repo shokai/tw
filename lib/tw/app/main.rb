@@ -89,10 +89,12 @@ module Tw::App
         STDERR.puts "       tw --stream"
         STDERR.puts "       tw --stream:filter=ruby,java"
         STDERR.puts "       tw --dm:to=username \"hello!\""
+        STDERR.puts "id     tw @shokai --id"
+        STDERR.puts 'reply  tw "@shokai wow!!" --id=334749349588377601'
+        STDERR.puts "       tw --fav=334749349588377601"
+        STDERR.puts "       tw --rt=334749349588377601"
         STDERR.puts "       tw --format=json"
         STDERR.puts '       tw --format="@#{user} #{text} - http://twitter.com/#{user}/#{id}"'
-        STDERR.puts "fav    tw --fav=334739319170428929"
-        STDERR.puts "rt     tw --rt=334739319170428929"
         on_exit
       end
 
@@ -121,16 +123,24 @@ module Tw::App
         }, @parser[:format]
       else
         message = @parser.argv.join(' ')
+        tweet_opts = {}
         if (len = message.char_length_with_t_co) > 140
           STDERR.puts "tweet too long (#{len} chars)"
           on_error
         else
-          puts "tweet \"#{message}\"?  (#{len} chars)"
+          if @parser.has_param? :status_id
+            client.show_status @parser[:status_id]
+            puts "--"
+            puts "reply \"#{message}\"? (#{len} chars)"
+            tweet_opts[:in_reply_to_status_id] = @parser[:status_id]
+          else
+            puts "tweet \"#{message}\"?  (#{len} chars)"
+          end
           puts '[Y/n]'
           on_exit if STDIN.gets.strip =~ /^n/i
         end
         begin
-          client.tweet message
+          client.tweet message, tweet_opts
         rescue => e
           STDERR.puts e.message
         end
