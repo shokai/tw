@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tw (0.4.2)
+    tw (0.4.3)
       args_parser (>= 0.1.4)
       json (>= 1.7.0)
       parallel (>= 0.6.0)
@@ -18,14 +18,14 @@ GEM
     hashie (1.2.0)
     json (1.8.0)
     minitest (5.0.4)
-    multi_json (1.7.6)
+    multi_json (1.7.7)
     multipart-post (1.2.0)
     oauth (0.4.7)
-    parallel (0.6.5)
+    parallel (0.7.1)
     rainbow (1.1.4)
     rake (10.0.4)
     simple_oauth (0.2.0)
-    twitter (4.8.0)
+    twitter (4.8.1)
       faraday (~> 0.8, < 0.10)
       multi_json (~> 1.0)
       simple_oauth (~> 0.2)
