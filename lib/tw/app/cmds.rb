@@ -8,6 +8,8 @@ module Tw::App
         if v == true
           STDERR.puts 'e.g.  tw "hello" --user=USERNAME'
           on_error
+        else
+          Render.puts "switch user -> @#{v}"
         end
       end
 
