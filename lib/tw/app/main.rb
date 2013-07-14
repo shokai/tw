@@ -98,7 +98,7 @@ module Tw::App
         on_exit
       end
 
-      Render.silent = @parser[:silent]
+      Render.silent = (@parser.has_option? :silent or @parser.has_param? :format)
       Render.show_status_id = @parser[:status_id]
       Tw::Conf.conf_file = @parser[:conf]
 
