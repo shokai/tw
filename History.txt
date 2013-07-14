@@ -1,3 +1,7 @@
+=== 0.4.4 2013-07-14
+
+* silent if --format option
+
 === 0.4.3 2013-07-02
 
 * notify switch user
