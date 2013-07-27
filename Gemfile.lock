@@ -13,8 +13,8 @@ GEM
   remote: https://rubygems.org/
   specs:
     args_parser (0.1.6)
-    faraday (0.8.7)
-      multipart-post (~> 1.1)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     hashie (1.2.0)
     json (1.8.0)
     minitest (5.0.6)
