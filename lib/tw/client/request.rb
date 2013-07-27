@@ -79,7 +79,7 @@ module Tw
 
     def show_status(status_id)
       res = Twitter.status(status_id)
-      puts res.text
+      puts CGI.unescapeHTML res.text
       puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id}"
       puts res.created_at
     end
