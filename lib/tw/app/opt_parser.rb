@@ -6,7 +6,7 @@ module Tw::App
     end
     
     def listname?(arg)
-      arg =~ /^@[a-zA-Z0-9_]+\/[a-zA-Z0-9_]+$/ ? arg.scan(/^@([a-zA-Z0-9_]+)\/([a-zA-Z0-9_]+)$/)[0] : false
+      arg =~ /^@[a-zA-Z0-9_]+\/[a-zA-Z0-9_-]+$/ ? arg.scan(/^@([a-zA-Z0-9_]+)\/([a-zA-Z0-9_]+)$/)[0] : false
     end
 
     def request?(arg)
