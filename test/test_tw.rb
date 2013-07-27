@@ -40,7 +40,7 @@ class TestTw < MiniTest::Test
   end
 
   def test_list_timeline
-    assert response? @client.list_timeline('shokai', 'arr')
+    assert response? @client.list_timeline('shokai', 'tw-user')
   end
 
   def test_direct_message
