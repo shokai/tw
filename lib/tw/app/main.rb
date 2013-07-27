@@ -116,7 +116,7 @@ module Tw::App
         Render.display Parallel.map(@parser.argv, :in_threads => @parser.argv.size){|arg|
           if user = username?(arg)
             res = client.user_timeline user
-          elsif (user, list =listname?(arg)) != false
+          elsif (user, list = listname?(arg)) != false
             res = client.list_timeline(user, list)
           end
           res
