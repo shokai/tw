@@ -1,3 +1,7 @@
+=== 0.4.6 2013-07-28
+
+* unescape HTML in Tw::Client#show_status
+
 === 0.4.5 2013-07-27
 
 * fix listname regex, could contain '-'
