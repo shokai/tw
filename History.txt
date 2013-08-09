@@ -1,3 +1,7 @@
+=== 0.4.8 2013-08-10
+
+* show Fav/RT count
+
 === 0.4.7 2013-08-09
 
 * modify DM send dialog
