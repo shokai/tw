@@ -63,7 +63,8 @@ module Tw::App
             STDERR.puts 'e.g.  tw --dm:to=USERNAME  "hello"'
             on_error
           else
-            puts "dm \"#{message}\"?  (#{len} chars)"
+            puts "DM to @#{to}"
+            puts "\"#{message}\"?  (#{len} chars)"
             puts '[Y/n]'
             on_exit if STDIN.gets.strip =~ /^n/i
             auth
