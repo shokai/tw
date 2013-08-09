@@ -1,3 +1,8 @@
+=== 0.4.7 2013-08-09
+
+* modify DM send dialog
+* declare license in gemspec
+
 === 0.4.6 2013-07-28
 
 * unescape HTML in Tw::Client#show_status
