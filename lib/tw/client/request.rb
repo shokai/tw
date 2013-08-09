@@ -1,4 +1,3 @@
-
 module Tw
   class Client
 
@@ -7,7 +6,9 @@ module Tw
         Tw::Tweet.new(:id => m.id,
                       :user => m.user.screen_name,
                       :text => m.text,
-                      :time => m.created_at)
+                      :time => m.created_at,
+                      :fav_count => m.favorite_count,
+                      :rt_count => m.retweet_count)
       }
     end
 
@@ -16,7 +17,9 @@ module Tw
         Tw::Tweet.new(:id => m.id,
                       :user => m.from_user,
                       :text => m.text,
-                      :time => m.created_at)
+                      :time => m.created_at,
+                      :fav_count => m.favorite_count,
+                      :rt_count => m.retweet_count)
       }
     end
 
@@ -25,7 +28,9 @@ module Tw
         Tw::Tweet.new(:id => m.id,
                       :user => m.user.screen_name,
                       :text => m.text,
-                      :time => m.created_at)
+                      :time => m.created_at,
+                      :fav_count => m.favorite_count,
+                      :rt_count => m.retweet_count)
       }
     end
 
@@ -34,7 +39,9 @@ module Tw
         Tw::Tweet.new(:id => m.id,
                       :user => m.user.screen_name,
                       :text => m.text,
-                      :time => m.created_at)
+                      :time => m.created_at,
+                      :fav_count => m.favorite_count,
+                      :rt_count => m.retweet_count)
       }
     end
 
@@ -43,7 +50,9 @@ module Tw
         Tw::Tweet.new(:id => m.id,
                       :user => m.user.screen_name,
                       :text => m.text,
-                      :time => m.created_at)
+                      :time => m.created_at,
+                      :fav_count => m.favorite_count,
+                      :rt_count => m.retweet_count)
       }
     end
 
