@@ -2,7 +2,7 @@ tw
 ==
 
 * CUI Twitter Client.
-* http://shokai.github.com/tw
+* http://shokai.github.io/tw
 * https://rubygems.org/gems/tw
 
 

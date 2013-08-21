@@ -9,7 +9,7 @@ Gem::Specification.new do |gem|
   gem.email         = ["hashimoto@shokai.org"]
   gem.description   = %q{CUI Twitter Client.}
   gem.summary       = gem.description
-  gem.homepage      = "http://shokai.github.com/tw"
+  gem.homepage      = "http://shokai.github.io/tw"
   gem.license       = "MIT"
 
   gem.files         = `git ls-files`.split($/).reject{|i| i=="Gemfile.lock" }
