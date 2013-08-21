@@ -90,6 +90,7 @@ module Tw::App
         STDERR.puts "       tw --stream:filter=ruby,java"
         STDERR.puts "       tw --dm:to=username \"hello!\""
         STDERR.puts "id     tw @shokai --id"
+        STDERR.puts "       tw @shokai --id=334749349588377601"
         STDERR.puts 'reply  tw "@shokai wow!!" --id=334749349588377601'
         STDERR.puts "       tw --fav=334749349588377601"
         STDERR.puts "       tw --rt=334749349588377601"
@@ -111,7 +112,11 @@ module Tw::App
 
       auth
       if @parser.argv.size < 1
-        Render.display client.mentions, @parser[:format]
+        if @parser.has_param? :status_id
+          client.show_status @parser[:status_id]
+        else
+          Render.display client.mentions, @parser[:format]
+        end
       elsif all_requests?(@parser.argv)
         Render.display Parallel.map(@parser.argv, :in_threads => @parser.argv.size){|arg|
           if user = username?(arg)
