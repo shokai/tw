@@ -1,3 +1,7 @@
+=== 0.4.9 2013-08-22
+
+* show tweet by status_id  % tw --id=1234543234
+
 === 0.4.8 2013-08-10
 
 * show Fav/RT count
