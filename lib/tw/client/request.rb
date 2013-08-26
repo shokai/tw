@@ -88,7 +88,10 @@ module Tw
 
     def show_status(status_id)
       res = Twitter.status(status_id)
-      puts CGI.unescapeHTML res.text
+      line = CGI.unescapeHTML res.text
+      line += " #{res.favorite_count}Fav" if res.favorite_count.to_i > 0
+      line += " #{res.retweet_count}RT" if res.retweet_count.to_i > 0
+      puts line.colorize(/@[a-zA-Z0-9_]+|\d+RT|\d+Fav/)
       puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id}"
       puts res.created_at
     end
