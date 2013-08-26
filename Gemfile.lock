@@ -12,7 +12,7 @@ PATH
 GEM
   remote: https://rubygems.org/
   specs:
-    args_parser (0.1.6)
+    args_parser (0.2.0)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
     hashie (1.2.0)
