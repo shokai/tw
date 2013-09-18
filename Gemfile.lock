@@ -2,9 +2,9 @@ PATH
   remote: .
   specs:
     tw (0.5.1)
-      args_parser (>= 0.1.4)
+      args_parser (>= 0.2.0)
       json (>= 1.7.0)
-      parallel (>= 0.6.0)
+      parallel (>= 0.8.2)
       rainbow (>= 1.1.4)
       twitter (>= 4.4.0)
       userstream (>= 1.2.0)
