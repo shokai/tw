@@ -53,7 +53,7 @@ module Tw::App
 
       cmd 'dm:to' do |to, opts|
         unless opts[:pipe]
-          message = @parser.argv.join(' ')
+          message = @args.argv.join(' ')
           len = message.char_length_with_t_co
           if len > 140
             STDERR.puts "message too long (#{len} chars)"
@@ -109,7 +109,7 @@ module Tw::App
                 client.direct_message_create to, message
               else
                 tweet_opts = {}
-                tweet_opts[:in_reply_to_status_id] = @parser[:status_id] if @parser.has_param? :status_id
+                tweet_opts[:in_reply_to_status_id] = @args[:status_id] if @args.has_param? :status_id
                 client.tweet message, tweet_opts
               end
             rescue => e
@@ -133,7 +133,7 @@ module Tw::App
       end
 
       cmd :stream do |v, opts|
-        stream = Tw::Client::Stream.new @parser.has_param?(:user) ? @parser[:user] : nil
+        stream = Tw::Client::Stream.new @args.has_param?(:user) ? @args[:user] : nil
         Render.puts "-- waiting stream.."
         loop do
           begin
@@ -157,7 +157,7 @@ module Tw::App
           on_error
         else
           track_words = v.split(/\s*,\s*/)
-          stream = Tw::Client::Stream.new @parser.has_param?(:user) ? @parser[:user] : nil
+          stream = Tw::Client::Stream.new @args.has_param?(:user) ? @args[:user] : nil
           Render.puts "-- waiting stream..  track \"#{track_words.join(',')}\""
           loop do
             begin

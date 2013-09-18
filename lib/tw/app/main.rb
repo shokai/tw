@@ -41,7 +41,7 @@ module Tw::App
     end
 
     def run(argv)
-      @parser = ArgsParser.parse argv, :style => :equal do
+      @args = ArgsParser.parse argv, :style => :equal do
         arg :user, 'user account', :alias => :u
         arg 'user:add', 'add user'
         arg 'user:list', 'show user list'
@@ -79,11 +79,11 @@ module Tw::App
         end
       end
 
-      if @parser.has_option? :help
+      if @args.has_option? :help
         STDERR.puts "Tw - Twitter client on Ruby v#{Tw::VERSION}"
         STDERR.puts "     http://shokai.github.io/tw"
         STDERR.puts
-        STDERR.puts @parser.help
+        STDERR.puts @args.help
         STDERR.puts
         STDERR.puts "e.g."
         STDERR.puts "tweet  tw hello world"
@@ -105,57 +105,57 @@ module Tw::App
         on_exit
       end
 
-      Render.silent = (@parser.has_option? :silent or @parser.has_param? :format)
-      Render.show_status_id = @parser[:status_id]
-      Tw::Conf.conf_file = @parser[:conf]
+      Render.silent = (@args.has_option? :silent or @args.has_param? :format)
+      Render.show_status_id = @args[:status_id]
+      Tw::Conf.conf_file = @args[:conf]
 
       regist_cmds
 
       cmds.each do |name, cmd|
-        next unless @parser[name]
-        cmd.call @parser[name], @parser
+        next unless @args[name]
+        cmd.call @args[name], @args
       end
 
       auth
-      if @parser.argv.size < 1
-        if @parser.has_param? :status_id
-          client.show_status @parser[:status_id]
+      if @args.argv.size < 1
+        if @args.has_param? :status_id
+          client.show_status @args[:status_id]
         else
-          Render.display client.mentions, @parser[:format]
+          Render.display client.mentions, @args[:format]
         end
-      elsif all_requests?(@parser.argv)
-        Render.display Parallel.map(@parser.argv, :in_threads => @parser.argv.size){|arg|
+      elsif all_requests?(@args.argv)
+        Render.display Parallel.map(@args.argv, :in_threads => @args.argv.size){|arg|
           if user = username?(arg)
             res = client.user_timeline user
           elsif (user, list = listname?(arg)) != false
             res = client.list_timeline(user, list)
           end
           res
-        }, @parser[:format]
+        }, @args[:format]
       else
-        message = @parser.argv.join(' ')
+        message = @args.argv.join(' ')
         tweet_opts = {}
         if (len = message.char_length_with_t_co) > 140
           STDERR.puts "tweet too long (#{len} chars)"
           on_error
         else
-          if @parser.has_param? :status_id
-            client.show_status @parser[:status_id]
+          if @args.has_param? :status_id
+            client.show_status @args[:status_id]
             puts "--"
             puts "reply \"#{message}\"? (#{len} chars)"
-            tweet_opts[:in_reply_to_status_id] = @parser[:status_id]
+            tweet_opts[:in_reply_to_status_id] = @args[:status_id]
           else
             puts "tweet \"#{message}\"?  (#{len} chars)"
-            if @parser.has_param? :file
-              puts "upload \"#{@parser[:file]}\"? (#{File.size @parser[:file]} bytes)"
+            if @args.has_param? :file
+              puts "upload \"#{@args[:file]}\"? (#{File.size @args[:file]} bytes)"
             end
           end
           puts '[Y/n]'
           on_exit if STDIN.gets.strip =~ /^n/i
         end
         begin
-          if @parser.has_param? :file
-            client.tweet_with_file message, File.open(@parser[:file]), tweet_opts
+          if @args.has_param? :file
+            client.tweet_with_file message, File.open(@args[:file]), tweet_opts
           else
             client.tweet message, tweet_opts
           end
@@ -167,8 +167,8 @@ module Tw::App
 
     private
     def auth
-      return unless @parser
-      client.auth @parser.has_param?(:user) ? @parser[:user] : nil
+      return unless @args
+      client.auth @args.has_param?(:user) ? @args[:user] : nil
     end
 
   end
