@@ -23,6 +23,7 @@ Tweet
 
     % tw hello hello
     % echo "hello" | tw --pipe
+    % tw 'yummy!!' --file=food.jpg
 
 read Timeline
 

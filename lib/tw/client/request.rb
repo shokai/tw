@@ -80,6 +80,13 @@ module Tw
       puts res.created_at
     end
 
+    def tweet_with_file(message, file, opts={})
+      res = Twitter.update_with_media message, file, opts
+      puts res.text
+      puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id}"
+      puts res.created_at
+    end
+
     def direct_message_create(to, message)
       res = Twitter.direct_message_create to, message
       puts res.text

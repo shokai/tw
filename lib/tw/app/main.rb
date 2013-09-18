@@ -54,6 +54,7 @@ module Tw::App
         arg :search, 'search public timeline', :alias => :s
         arg :stream, 'show user stream', :alias => :st
         arg :status_id, 'show status_id', :alias => :id
+        arg :file, 'upload file'
         arg :pipe, 'pipe tweet'
         arg :format, 'output format', :default => 'text'
         arg :silent, 'silent mode'
@@ -72,6 +73,10 @@ module Tw::App
         validate 'dm:to', 'invalid user name' do |v|
           v =~ /^[a-zA-Z0-9_]+$/
         end
+
+        validate :file, "file does not exists" do |v|
+          File.exists? v
+        end
       end
 
       if @parser.has_option? :help
@@ -83,6 +88,7 @@ module Tw::App
         STDERR.puts "e.g."
         STDERR.puts "tweet  tw hello world"
         STDERR.puts "       echo 'hello' | tw --pipe"
+        STDERR.puts "       tw 'yummy!!' --file=food.jpg"
         STDERR.puts "read   tw @username"
         STDERR.puts "       tw @username @user2 @user2/listname"
         STDERR.puts "       tw --search=ruby"
@@ -140,12 +146,19 @@ module Tw::App
             tweet_opts[:in_reply_to_status_id] = @parser[:status_id]
           else
             puts "tweet \"#{message}\"?  (#{len} chars)"
+            if @parser.has_param? :file
+              puts "upload \"#{@parser[:file]}\"? (#{File.size @parser[:file]} bytes)"
+            end
           end
           puts '[Y/n]'
           on_exit if STDIN.gets.strip =~ /^n/i
         end
         begin
-          client.tweet message, tweet_opts
+          if @parser.has_param? :file
+            client.tweet_with_file message, File.open(@parser[:file]), tweet_opts
+          else
+            client.tweet message, tweet_opts
+          end
         rescue => e
           STDERR.puts e.message
         end
