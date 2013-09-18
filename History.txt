@@ -1,3 +1,7 @@
+=== 0.5.1 2013-09-18
+
+* tweet with file  % tw 'yummy!!' --file=food.jpg
+
 === 0.5.0 2013-08-26
 
 * show RT/Fav count on  % tw --id=1234552234
