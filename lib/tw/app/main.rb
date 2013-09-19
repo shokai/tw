@@ -58,6 +58,7 @@ module Tw::App
         arg :pipe, 'pipe tweet'
         arg :format, 'output format', :default => 'text'
         arg :silent, 'silent mode'
+        arg :yes, 'do not show dialogue'
         arg :conf, 'config file', :default => Tw::Conf.conf_file
         arg :version, 'show version', :alias => :v
         arg :help, 'show help', :alias => :h
@@ -88,7 +89,7 @@ module Tw::App
         STDERR.puts "e.g."
         STDERR.puts "tweet  tw hello world"
         STDERR.puts "       echo 'hello' | tw --pipe"
-        STDERR.puts "       tw 'yummy!!' --file=food.jpg"
+        STDERR.puts "       tw 'yummy!!' --file=food.jpg --yes"
         STDERR.puts "read   tw @username"
         STDERR.puts "       tw @username @user2 @user2/listname"
         STDERR.puts "       tw --search=ruby"
@@ -150,8 +151,10 @@ module Tw::App
               puts "upload \"#{@args[:file]}\"? (#{File.size @args[:file]} bytes)"
             end
           end
-          puts '[Y/n]'
-          on_exit if STDIN.gets.strip =~ /^n/i
+          unless @args.has_option? :yes
+            puts '[Y/n]'
+            on_exit if STDIN.gets.strip =~ /^n/i
+          end
         end
         begin
           if @args.has_param? :file
