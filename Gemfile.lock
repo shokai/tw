@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tw (0.5.2)
+    tw (1.0.0)
       args_parser (>= 0.2.0)
       json (>= 1.7.0)
       parallel (>= 0.8.2)
