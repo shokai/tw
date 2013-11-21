@@ -2,7 +2,7 @@ module Tw
   class Client
 
     def mentions
-      Twitter.mentions.map{|m|
+      @rest_client.mentions.map{|m|
         Tw::Tweet.new(:id => m.id,
                       :user => m.user.screen_name,
                       :text => m.text,
@@ -13,9 +13,9 @@ module Tw
     end
 
     def search(word)
-      Twitter.search(word).results.map{|m|
+      @rest_client.search(word).map{|m|
         Tw::Tweet.new(:id => m.id,
-                      :user => m.from_user,
+                      :user => m.user.screen_name,
                       :text => m.text,
                       :time => m.created_at,
                       :fav_count => m.favorite_count,
@@ -24,7 +24,7 @@ module Tw
     end
 
     def home_timeline
-      Twitter.home_timeline.map{|m|
+      @rest_client.home_timeline.map{|m|
         Tw::Tweet.new(:id => m.id,
                       :user => m.user.screen_name,
                       :text => m.text,
@@ -35,7 +35,7 @@ module Tw
     end
 
     def user_timeline(user)
-      Twitter.user_timeline(user).map{|m|
+      @rest_client.user_timeline(user).map{|m|
         Tw::Tweet.new(:id => m.id,
                       :user => m.user.screen_name,
                       :text => m.text,
@@ -46,7 +46,7 @@ module Tw
     end
 
     def list_timeline(user,list)
-      Twitter.list_timeline(user, list).map{|m|
+      @rest_client.list_timeline(user, list).map{|m|
         Tw::Tweet.new(:id => m.id,
                       :user => m.user.screen_name,
                       :text => m.text,
@@ -57,12 +57,12 @@ module Tw
     end
 
     def direct_messages
-      [Twitter.direct_messages.map{|m|
+      [@rest_client.direct_messages.map{|m|
          Tw::Tweet.new(:id => m.id,
                        :user => m.sender.screen_name,
                        :text => m.text,
                        :time => m.created_at)
-       }, Twitter.direct_messages_sent.map{|m|
+       }, @rest_client.direct_messages_sent.map{|m|
          Tw::Tweet.new(:id => m.id,
                        :user => {
                          :from => m.sender.screen_name,
@@ -74,27 +74,27 @@ module Tw
     end
 
     def tweet(message, opts={})
-      res = Twitter.update message, opts
+      res = @rest_client.update message, opts
       puts res.text
       puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id}"
       puts res.created_at
     end
 
     def tweet_with_file(message, file, opts={})
-      res = Twitter.update_with_media message, file, opts
+      res = @rest_client.update_with_media message, file, opts
       puts res.text
       puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id}"
       puts res.created_at
     end
 
     def direct_message_create(to, message)
-      res = Twitter.direct_message_create to, message
+      res = @rest_client.create_direct_message to, message
       puts res.text
       puts res.created_at
     end
 
     def show_status(status_id)
-      res = Twitter.status(status_id)
+      res = @rest_client.status(status_id)
       line = CGI.unescapeHTML res.text
       line += " #{res.favorite_count}Fav" if res.favorite_count.to_i > 0
       line += " #{res.retweet_count}RT" if res.retweet_count.to_i > 0
@@ -104,11 +104,11 @@ module Tw
     end
 
     def favorite(status_id)
-      Twitter.favorite status_id
+      @rest_client.favorite status_id
     end
 
     def retweet(status_id)
-      Twitter.retweet status_id
+      @rest_client.retweet status_id
     end
 
   end

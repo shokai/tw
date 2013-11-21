@@ -71,8 +71,8 @@ module Tw
         return
       end
       self['twitter_config'] = {}
-      self['twitter_config']['short_url_length'] = Twitter::configuration.short_url_length
-      self['twitter_config']['short_url_length_https'] = Twitter::configuration.short_url_length_https
+      self['twitter_config']['short_url_length'] = Tw::Client.client.configuration.short_url_length
+      self['twitter_config']['short_url_length_https'] = Tw::Client.client.configuration.short_url_length_https
       self['twitter_config']['last_updated_at'] = Time.now.to_i
       self.save
     end

@@ -6,7 +6,7 @@ PATH
       json (>= 1.7.0)
       parallel (>= 0.8.2)
       rainbow (>= 1.1.4)
-      twitter (>= 4.4.0)
+      twitter (>= 5.0.0)
       userstream (>= 1.2.0)
 
 GEM

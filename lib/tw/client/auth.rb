@@ -1,8 +1,16 @@
 
 module Tw
   class Client
+    def self.client
+      @@client
+    end
+
+    def self.client=(client)
+      @@client = client
+    end
+
     def auth(user=nil)
-      Auth.auth user
+      self.class.client = @rest_client = Auth.auth user
     end
   end
 
@@ -10,7 +18,7 @@ module Tw
 
     def self.auth(user=nil)
       user = get_or_regist_user user
-      Twitter.configure do |c|
+      return Twitter::REST::Client.new do |c|
         c.consumer_key = Conf['consumer_key']
         c.consumer_secret = Conf['consumer_secret']
         c.oauth_token = user['access_token']
