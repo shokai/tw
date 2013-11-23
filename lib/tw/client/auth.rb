@@ -47,9 +47,9 @@ module Tw
       print 'input PIN Number: '
       verifier = STDIN.gets.strip
       access_token = request_token.get_access_token(:oauth_verifier => verifier)
-      self.auth('access_token' => access_token.token,
-                'access_secret' => access_token.secret)
-      u = Twitter.user
+      client = Tw::Client.new.auth('access_token' => access_token.token,
+                      'access_secret' => access_token.secret)
+      u = client.user
       Conf['users'][u.screen_name] = {
         'access_token' => access_token.token,
         'access_secret' => access_token.secret,
