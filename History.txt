@@ -1,3 +1,7 @@
+=== 1.0.1 2013-11-23
+
+* bugfix -user:add  #51
+
 === 1.0.0 2013-11-21
 
 * fix for twitter gem v5.0.0  #50
