@@ -15,5 +15,5 @@ client = Tw::Client.new
 client.auth user
 
 File.open icon do |f|
-  puts 'upload success' if Twitter.update_profile_image f
+  puts 'upload success' if Tw::Client.client.update_profile_image f
 end
