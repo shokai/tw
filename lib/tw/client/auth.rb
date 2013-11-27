@@ -10,7 +10,7 @@ module Tw
     end
 
     def auth(user=nil)
-      self.class.client = @rest_client = Auth.auth user
+      self.class.client = @rest_client = Auth.auth(user)
     end
   end
 
