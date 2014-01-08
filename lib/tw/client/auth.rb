@@ -1,4 +1,3 @@
-
 module Tw
   class Client
     def self.client
@@ -42,8 +41,8 @@ module Tw
       consumer = OAuth::Consumer.new(Conf['consumer_key'], Conf['consumer_secret'],
                                      :site => 'http://api.twitter.com')
       request_token = consumer.get_request_token
-      puts cmd = "open #{request_token.authorize_url}"
-      system cmd
+      puts "open #{request_token.authorize_url}"
+      Launchy.open request_token.authorize_url
       print 'input PIN Number: '
       verifier = STDIN.gets.strip
       access_token = request_token.get_access_token(:oauth_verifier => verifier)
