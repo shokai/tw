@@ -1,3 +1,8 @@
+=== 1.0.3 2014-01-08
+
+* bugfix for rainbow 1.99.x  #54
+* use launchy gem to open OAuth-URL  #53
+
 === 1.0.2 2013-11-27
 
 * fix syntax error on ruby1.8.7
