@@ -17,12 +17,12 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_dependency 'twitter', '>= 5.0.0'
+  gem.add_dependency 'twitter', '>= 5.5.1'
   gem.add_dependency 'userstream', '>= 1.2.0'
   gem.add_dependency 'json', '>= 1.7.0'
-  gem.add_dependency 'rainbow', '>= 1.1.4'
+  gem.add_dependency 'rainbow', '>= 1.99.1'
   gem.add_dependency 'args_parser', '>= 0.2.0'
-  gem.add_dependency 'parallel', '>= 0.8.2'
+  gem.add_dependency 'parallel', '>= 0.9.1'
   gem.add_dependency 'launchy', '>= 2.4.2'
 
   gem.add_development_dependency 'rake'

@@ -5,9 +5,9 @@ PATH
       args_parser (>= 0.2.0)
       json (>= 1.7.0)
       launchy (>= 2.4.2)
-      parallel (>= 0.8.2)
-      rainbow (>= 1.1.4)
-      twitter (>= 5.0.0)
+      parallel (>= 0.9.1)
+      rainbow (>= 1.99.1)
+      twitter (>= 5.5.1)
       userstream (>= 1.2.0)
 
 GEM
