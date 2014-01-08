@@ -22,7 +22,7 @@ module Tw::App
     end
 
     def self.color_code(str)
-      colors = Sickill::Rainbow::TERM_COLORS.keys - [:default, :black, :white]
+      colors = Rainbow::Color::Named::NAMES.keys - [:default, :black, :white]
       n = str.each_byte.map{|c| c.to_i}.inject{|a,b|a+b}
       return colors[n%colors.size]
     end
