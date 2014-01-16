@@ -1,3 +1,8 @@
+=== 1.0.5 2014-01-16
+
+* use HTTPS for OAuth::Consumer  #55
+  * thank you for contributing @ymrl
+
 === 1.0.4 2014-01-08
 
 * update gem dependencies
