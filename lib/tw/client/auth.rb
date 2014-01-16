@@ -39,7 +39,7 @@ module Tw
 
     def self.regist_user
       consumer = OAuth::Consumer.new(Conf['consumer_key'], Conf['consumer_secret'],
-                                     :site => 'http://api.twitter.com')
+                                     :site => 'https://api.twitter.com')
       request_token = consumer.get_request_token
       puts "open #{request_token.authorize_url}"
       Launchy.open request_token.authorize_url
