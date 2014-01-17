@@ -1,3 +1,7 @@
+=== 1.0.6 2014-01-17
+
+* rescue Launchy::CommandNotFoundError  #56
+
 === 1.0.5 2014-01-16
 
 * use HTTPS for OAuth::Consumer  #55
