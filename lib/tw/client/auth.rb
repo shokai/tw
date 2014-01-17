@@ -42,7 +42,11 @@ module Tw
                                      :site => 'https://api.twitter.com')
       request_token = consumer.get_request_token
       puts "open #{request_token.authorize_url}"
-      Launchy.open request_token.authorize_url
+      begin
+        Launchy.open request_token.authorize_url
+      rescue
+        STDERR.puts "couldn't open web-browser"
+      end
       print 'input PIN Number: '
       verifier = STDIN.gets.strip
       access_token = request_token.get_access_token(:oauth_verifier => verifier)
