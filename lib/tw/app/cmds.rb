@@ -105,6 +105,21 @@ module Tw::App
         on_exit
       end
 
+      cmd :delete do |v, opts|
+        if opts.has_param? :delete
+          id = opts[:delete]
+          auth
+          client.show_status id
+          puts 'Delete this?'
+          unless opts.has_option? :yes
+            puts '[Y/n]'
+            on_exit if STDIN.gets.strip =~ /^n/i
+          end
+          puts "success!" if client.destroy_status id
+        end
+        on_exit
+      end
+
       cmd :pipe do |v, opts|
         auth
         while line = STDIN.gets do

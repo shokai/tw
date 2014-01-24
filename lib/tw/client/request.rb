@@ -111,5 +111,9 @@ module Tw
       @rest_client.retweet status_id
     end
 
+    def destroy_status(status_id)
+      @rest_client.destroy_status status_id
+    end
+
   end
 end
