@@ -51,6 +51,7 @@ module Tw::App
         arg 'dm:to', 'create direct message'
         arg :favorite, 'favorite tweet', :alias => :fav
         arg :retweet, 'retweet', :alias => :rt
+        arg :delete, 'delete tweet', :alias => :del
         arg :search, 'search public timeline', :alias => :s
         arg :stream, 'show user stream', :alias => :st
         arg :status_id, 'show status_id', :alias => :id
@@ -103,6 +104,7 @@ module Tw::App
         STDERR.puts "       tw --rt=334749349588377601"
         STDERR.puts "       tw --format=json"
         STDERR.puts '       tw --format="@#{user} #{text} - http://twitter.com/#{user}/#{id}"'
+        STDERR.puts "delete tw --del=334749349588377601"
         on_exit
       end
 
