@@ -1,3 +1,8 @@
+=== 1.0.7 2014-01-25
+
+* Add --delete option
+  * thank you for contributing @janusadm
+
 === 1.0.6 2014-01-17
 
 * rescue Launchy::CommandNotFoundError  #56
