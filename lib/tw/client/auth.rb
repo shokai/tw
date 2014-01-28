@@ -20,8 +20,8 @@ module Tw
       return Twitter::REST::Client.new do |c|
         c.consumer_key = Conf['consumer_key']
         c.consumer_secret = Conf['consumer_secret']
-        c.oauth_token = user['access_token']
-        c.oauth_token_secret = user['access_secret']
+        c.access_token = user['access_token']
+        c.access_token_secret = user['access_secret']
       end
     end
 
