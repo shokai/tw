@@ -1,13 +1,13 @@
 PATH
   remote: .
   specs:
-    tw (1.0.7)
+    tw (1.0.8)
       args_parser (>= 0.2.0)
       json (>= 1.7.0)
       launchy (>= 2.4.2)
       parallel (>= 0.9.1)
-      rainbow (>= 1.99.1)
-      twitter (>= 5.5.1)
+      rainbow (>= 2.0.0)
+      twitter (>= 5.6.0)
       userstream (>= 1.2.0)
 
 GEM
