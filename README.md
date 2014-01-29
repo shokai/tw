@@ -44,8 +44,13 @@ Reply/Fav/RT
 
     % tw @shokai --id
     % tw "@shokai wow!!"  --id=334749349588377601
+    % tw --id=334749349588377601
     % tw --fav=334749349588377601
     % tw --rt=334749349588377601
+
+Delete
+
+    % tw --del=334749349588377601
 
 Switch Accounts
 
