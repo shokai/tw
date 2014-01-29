@@ -98,7 +98,7 @@ module Tw::App
         STDERR.puts "       tw --stream:filter=ruby,java"
         STDERR.puts "       tw --dm:to=username \"hello!\""
         STDERR.puts "id     tw @shokai --id"
-        STDERR.puts "       tw @shokai --id=334749349588377601"
+        STDERR.puts "       tw --id=334749349588377601"
         STDERR.puts 'reply  tw "@shokai wow!!" --id=334749349588377601'
         STDERR.puts "       tw --fav=334749349588377601"
         STDERR.puts "       tw --rt=334749349588377601"
