@@ -122,22 +122,20 @@ module Tw::App
 
       cmd :pipe do |v, opts|
         auth
-        while line = STDIN.gets do
-          line.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
-            begin
-              if opts.has_param? 'dm:to'
-                puts to = opts['dm:to']
-                client.direct_message_create to, message
-              else
-                tweet_opts = {}
-                tweet_opts[:in_reply_to_status_id] = opts[:status_id] if opts.has_param? :status_id
-                client.tweet message, tweet_opts
-              end
-            rescue => e
-              STDERR.puts e.message
+        lines = STDIN.readlines.join
+        lines.split(/(.{140})/u).select{|m|m.size>0}.each do |message|
+          begin
+            if opts.has_param? 'dm:to'
+              puts to = opts['dm:to']
+              client.direct_message_create to, message
+            else
+              tweet_opts = {}
+              tweet_opts[:in_reply_to_status_id] = opts[:status_id] if opts.has_param? :status_id
+              client.tweet message, tweet_opts
             end
+          rescue => e
+            STDERR.puts e.message
           end
-          sleep 1
         end
         on_exit
       end
