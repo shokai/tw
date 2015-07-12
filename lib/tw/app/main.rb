@@ -157,7 +157,7 @@ module Tw::App
             while true
               puts '[Y/n]'
               case STDIN.gets.strip
-              when /^y/i
+              when /^y/i, ""
                 break
               when /^n/i
                 on_exit
