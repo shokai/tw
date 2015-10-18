@@ -6,7 +6,7 @@ module Tw
       @id = opts[:id]
       @user = opts[:user]
       @text = opts[:text]
-      @time = opts[:time]
+      @time = opts[:time].getlocal
       @fav_count = opts[:fav_count]
       @rt_count = opts[:rt_count]
     end
