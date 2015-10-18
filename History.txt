@@ -1,3 +1,8 @@
+=== 1.0.10 2015-10-18
+
+* support a timezone  #66
+  * thank you for contributing @kaihar4
+
 === 1.0.9 2014-05-14
 
 * merge multiple lines from STDIN into one tweet
