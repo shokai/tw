@@ -13,7 +13,7 @@ module Tw
     end
 
     def search(word)
-      @rest_client.search(word).map{|m|
+      @rest_client.search(word).take(20).map{|m|
         Tw::Tweet.new(:id => m.id,
                       :user => m.user.screen_name,
                       :text => m.text,

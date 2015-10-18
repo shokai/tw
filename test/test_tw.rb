@@ -22,7 +22,7 @@ class TestTw < MiniTest::Test
     end
     return true
   end
-  
+
   def test_mentions
     assert response? @client.mentions
   end
