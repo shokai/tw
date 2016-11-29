@@ -23,7 +23,7 @@ module Tw
     end
 
     def url
-      "http://twitter.com/#{user}/status/#{id}"
+      "https://twitter.com/#{user}/status/#{id}"
     end
 
     def to_s
