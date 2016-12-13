@@ -154,8 +154,15 @@ module Tw::App
             end
           end
           unless @args.has_option? :yes
-            puts '[Y/n]'
-            on_exit if STDIN.gets.strip =~ /^n/i
+            while true
+              puts '[Y/n]'
+              case STDIN.gets.strip
+              when /^y/i, ""
+                break
+              when /^n/i
+                on_exit
+              end
+            end
           end
         end
         begin
