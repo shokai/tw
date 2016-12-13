@@ -114,6 +114,10 @@ module Tw::App
 
       regist_cmds
 
+      if @args.argv.empty? and @args.params.values.reject{|v| v[:value].nil?}.empty?
+        @args.params[:timeline][:value] = true
+      end
+
       cmds.each do |name, cmd|
         next unless @args[name]
         cmd.call @args[name], @args
