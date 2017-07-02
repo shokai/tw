@@ -19,13 +19,14 @@ Gem::Specification.new do |gem|
 
   gem.add_dependency 'twitter', '>= 5.15.0'
   gem.add_dependency 'userstream', '>= 1.2.0'
-  gem.add_dependency 'json', '>= 1.7.0'
+  gem.add_dependency 'json', '>= 2.1.0'
+  gem.add_dependency 'yajl-ruby', '>= 1.3.0'
   gem.add_dependency 'rainbow', '>= 2.0.0'
   gem.add_dependency 'args_parser', '>= 0.2.0'
   gem.add_dependency 'parallel', '>= 0.9.1'
   gem.add_dependency 'launchy', '>= 2.4.2'
 
   gem.add_development_dependency 'rake'
-  gem.add_development_dependency 'bundler', '~> 1.3'
+  gem.add_development_dependency 'bundler', '~> 1.15'
   gem.add_development_dependency 'minitest'
 end
