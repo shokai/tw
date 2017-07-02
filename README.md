@@ -11,6 +11,10 @@ Install
 
     % gem install tw
 
+for Ruby 2.0 ~ 2.3 users
+
+    % gem install tw --version=1.0.12
+
 
 Synopsis
 --------
