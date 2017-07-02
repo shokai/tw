@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
 
   gem.add_dependency 'twitter', '>= 5.15.0'
-  gem.add_dependency 'userstream', '>= 1.2.0'
+  gem.add_dependency 'userstream', '>= 1.2.0', '< 1.3.0'
   gem.add_dependency 'json', '>= 2.1.0'
   gem.add_dependency 'yajl-ruby', '>= 1.3.0'
   gem.add_dependency 'rainbow', '>= 2.2.2'
