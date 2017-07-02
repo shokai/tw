@@ -1,3 +1,8 @@
+=== 1.1.0 2017-07-02
+
+* update rubygems - parallel, rainbow, launchy #72
+* fix gemspec for ruby 2.4.x #71
+
 === 1.0.12 2016-11-30
 
 * use https on tweet URL
