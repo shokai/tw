@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tw (1.1.1)
+    tw (1.2.0)
       args_parser (>= 0.2.0)
       json (>= 2.1.0)
       launchy (>= 2.4.3)
@@ -73,4 +73,4 @@ DEPENDENCIES
   tw!
 
 BUNDLED WITH
-   1.15.3
+   1.15.4
