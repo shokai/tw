@@ -4,7 +4,6 @@ $:.unshift(File.dirname(__FILE__)) unless
 require 'oauth'
 require 'twitter'
 require 'time'
-require 'user_stream'
 require 'yaml'
 require 'time'
 require 'cgi'
