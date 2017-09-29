@@ -2,7 +2,7 @@
 class String
 
   def char_length
-    self.split(//u).size
+    self.split(//u).map{|i| i.bytes.length > 1 ? 2 : 1}.reduce(:+)
   end
 
   def char_length_with_t_co

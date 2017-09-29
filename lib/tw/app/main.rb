@@ -4,7 +4,7 @@ require File.expand_path 'render', File.dirname(__FILE__)
 require File.expand_path 'helper', File.dirname(__FILE__)
 
 module Tw::App
-  
+
   def self.new
     Main.new
   end
@@ -138,7 +138,7 @@ module Tw::App
       else
         message = @args.argv.join(' ')
         tweet_opts = {}
-        if (len = message.char_length_with_t_co) > 140
+        if (len = message.char_length_with_t_co) > 280
           STDERR.puts "tweet too long (#{len} chars)"
           on_error
         else
