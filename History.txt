@@ -1,3 +1,8 @@
+=== 1.2.1 2017-12-10
+
+* Fix deprecated warnings (#77)
+* update gems, use twitter v6.2.0, remove yajl-ruby from dependencies (#76)
+
 === 1.2.0 2017-08-20
 
 * fix --stream option (#73)

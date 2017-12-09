@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    tw (1.2.0)
+    tw (1.2.1)
       args_parser (>= 0.2.0)
       json (>= 2.1.0)
       launchy (>= 2.4.3)
