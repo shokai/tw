@@ -31,7 +31,7 @@ module Tw
     def self.conf
       @@conf ||= (
                   res = default
-                  if File.exists? self.conf_file
+                  if File.exist? self.conf_file
                     begin
                       data = nil
                       self.open_conf_file do |f|
@@ -84,7 +84,7 @@ module Tw
       else
         return open(self.conf_file, opt)
       end
-      File.chmod 0600, self.conf_file if File.exists? self.conf_file
+      File.chmod 0600, self.conf_file if File.exist? self.conf_file
     end
   end
 end
