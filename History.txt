@@ -1,3 +1,7 @@
+=== 1.3.0 2018-02-18
+
+* 280 chars tweet (#75)
+
 === 1.2.1 2017-12-10
 
 * Fix deprecated warnings (#77)
