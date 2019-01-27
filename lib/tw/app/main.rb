@@ -4,7 +4,7 @@ require File.expand_path 'render', File.dirname(__FILE__)
 require File.expand_path 'helper', File.dirname(__FILE__)
 
 module Tw::App
-  
+
   def self.new
     Main.new
   end
