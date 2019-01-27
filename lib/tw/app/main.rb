@@ -103,7 +103,7 @@ module Tw::App
         STDERR.puts "       tw --fav=334749349588377601"
         STDERR.puts "       tw --rt=334749349588377601"
         STDERR.puts "       tw --format=json"
-        STDERR.puts '       tw --format="@#{user} #{text} - http://twitter.com/#{user}/#{id}"'
+        STDERR.puts '       tw --format="@#{user} #{text} - https://twitter.com/#{user}/#{id}"'
         STDERR.puts "delete tw --del=334749349588377601"
         on_exit
       end
