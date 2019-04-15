@@ -76,14 +76,14 @@ module Tw
     def tweet(message, opts={})
       res = @rest_client.update message, opts
       puts res.text
-      puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id}"
+      puts "https://twitter.com/#{res.user.screen_name}/status/#{res.id}"
       puts res.created_at
     end
 
     def tweet_with_file(message, file, opts={})
       res = @rest_client.update_with_media message, file, opts
       puts res.text
-      puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id}"
+      puts "https://twitter.com/#{res.user.screen_name}/status/#{res.id}"
       puts res.created_at
     end
 
@@ -99,7 +99,7 @@ module Tw
       line += " #{res.favorite_count}Fav" if res.favorite_count.to_i > 0
       line += " #{res.retweet_count}RT" if res.retweet_count.to_i > 0
       puts line.colorize(/@[a-zA-Z0-9_]+|\d+RT|\d+Fav/)
-      puts "http://twitter.com/#{res.user.screen_name}/status/#{res.id}"
+      puts "https://twitter.com/#{res.user.screen_name}/status/#{res.id}"
       puts res.created_at
     end
 
